@@ -27,7 +27,7 @@ UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
 DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
 DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-IDENTIFIER              ::= <ALPHABET> 0*255(<ALPHABET> | <DIGIT> | "_")
+IDENTIFIER              ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
 
 ALPHABET                ::= <LOWER_CASE> | <UPPER_CASE>
 LOWER_CASE              ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
