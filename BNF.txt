@@ -16,7 +16,7 @@ LITERAL                 ::= INTEGER | FLOAT | UNSIGNED_FLOAT | UNSIGNED_INTEGER 
 BOOLEAN                 ::= "True" | "False"
 
 SYMBOL                  ::= ? Any ASCII character ?
-STRING                  ::= '"' 0*255<SYMBOL> '"'
+STRING                  ::= '"' 0*254<SYMBOL> '"'
 CHARACTER               ::= "'" <SYMBOL> "'"
 
 INTEGER                 ::= ["-"] <UNSIGNED_INTEGER>
@@ -27,7 +27,7 @@ UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
 DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
 DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-IDENTIFIER              ::= <ALPHABET> 0*253(<ALPHABET> | <DIGIT> | "_")
+IDENTIFIER              ::= <ALPHABET> 0*255(<ALPHABET> | <DIGIT> | "_")
 
 ALPHABET                ::= <LOWER_CASE> | <UPPER_CASE>
 LOWER_CASE              ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
