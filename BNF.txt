@@ -1,52 +1,67 @@
-SYMBOL              ::= ? Any ASCII character ?
-STRING		        ::= '"' {<SYMBOL>} '"'
-CHARACTER		    ::= "'" <SYMBOL> "'"
+(* Gramatica da linguagem Middle Earth ++ (MEPP), feita por:
+  > Douglas Sonntag
+  > Gustavo Speraffico
+  > Luana Campos
+  > Lucas Dalle
 
-ALPHABET            ::= <LOWER_CASE>| <UPPER_CASE>
-LOWER_CASE		    ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
-                    | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-UPPER_CASE          ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
-                    | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
-(*
-NUMBER          ::= INTEGER | FLOAT
-INTEGER  	    ::= ["-"] <UNSIGNED_INTEGER>
-FLOAT  		    ::= ["-"] <UNSIGNED_FLOAT>
-UNSIGNED_INTEGER::= <DIGIT_EXCEPT_0> {<DIGIT>}
-UNSIGNED_FLOAT  ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
+ Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
+ 
+ Nome da linguagem e extensao de arquivo:
+  MIDDLE EARTH ++
+  .MEPP
 *)
-NUMBER              ::= ["-"] <DIGIT_EXCEPT_0> {<DIGIT>} ["." {<DIGIT>}] # Coloquei sem tipagem!
 
-DIGIT	            ::= "0" | <DIGIT_EXCEPT_0>
-DIGIT_EXCEPT_0      ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+LITERAL                 ::= INTEGER | FLOAT | UNSIGNED_FLOAT | UNSIGNED_INTEGER | BOOLEAN | CHARACTER | STRING
 
-IDENTIFIER		    ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
+BOOLEAN                 ::= "True" | "False"
 
-PROGRAM		        ::= "The journey begins here" <BLOCK> "Go back to the abyss!" ";"
-BLOCK			    ::= "{" {<STATEMENT>} "}"
-STATEMENT		    ::= <ASSIGNMENT_STATEMENT> | <DECLARATION> | <IF_STATEMENT> | <WHILE> | <FOR> | <SWITCH>
+SYMBOL                  ::= ? Any ASCII character ?
+STRING                  ::= '"' {<SYMBOL>} '"'
+CHARACTER               ::= "'" <SYMBOL> "'"
 
-ASSIGNMENT_STATEMENT::= <IDENTIFIER> "=" (<ASSIGNMENT_STATEMENT | (<EXPRESSION> ";"))
-ASSIGNMENT		    ::= <IDENTIFIER> <RIGHT_ASSIGNMENT>
-RIGHT_ASSIGNMENT    ::= "=" ( (<IDENTIFIER> <RIGHT_ASSIGNMENT>) | <EXPRESSION>)
+INTEGER                 ::= ["-"] <UNSIGNED_INTEGER>
+FLOAT                   ::= ["-"] <UNSIGNED_FLOAT>
+UNSIGNED_INTEGER        ::= <DIGIT_EXCEPT_0> {<DIGIT>}
+UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
 
-ASSIGNMENT          ::= <IDENTIFIER> '=' (<ASSIGNMENT> | <EXPRESSION>)
-ASSIGNMENT_STATEMENT::= <ASSIGNMENT> ';'
+DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
+DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-DECLARATION 		::= ("elf" | "draugr" | "hobbit" | "troll"| "tengwarr"| "sindarin") (<ASSIGNMENT> | <IDENTIFIER>) {',' (<ASSIGNMENT> | <IDENTIFIER>)} ';'
+IDENTIFIER              ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
 
-IF_STATEMENT    	::= <IF> {<ELSE_IF>} [<ELSE>]
-IF			        ::= Given <EXPRESSION> <BLOCK>
-ELSE_IF	    	    ::= However when <EXPRESSION> <BLOCK>
-ELSE			    ::= Otherwise <BLOCK>
+ALPHABET                ::= <LOWER_CASE> | <UPPER_CASE>
+LOWER_CASE              ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
+                        | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+UPPER_CASE              ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
+                        | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
 
-WHILE		    	::= Quest <EXPRESSION> <BLOCK>
+(*------------------------------------------------------------------------------------*)
+PROGRAM                 ::= <DECLARATION_STATEMENT> <PROGRAM> | <FUCTION_STATEMENT> <PROGRAM> | <MAIN_STATEMENT>
+MAIN_STATEMENT          ::= "The journey begins here" <BLOCK>
+BLOCK                   ::= "{" {<STATEMENT>} "}"
+STATEMENT               ::= <ASSIGNMENT_STATEMENT> | <DECLARATION_STATEMENT> | <IF_STATEMENT> | <WHILE_STATEMENT>
 
-FOR			        ::= Fellowship (<DECLARATION>| )";" <COMPARISON>";" <ASSIGNMENT> {"," <ASSIGNMENT>} <BLOCK>
+ASSIGNMENT_STATEMENT    ::= <ASSIGNMENT> ';'
+ASSIGNMENT              ::= <IDENTIFIER> '=' (<ASSIGNMENT> | <EXPRESSION>)
 
-SWITCH		        ::= Choose wisely <IDENTIFIER> ":" {Path <EXPRESSION>":" (<BLOCK>| {<STATEMENT>}) }
+DECLARATION_STATEMENT   ::= <TYPE> <IDENTIFIER> {"," <IDENTIFIER>} ";"
 
+TYPE                    ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari"
+                        #= "int" |"unsigned"| "short" | "long"  |   "char"   |  "string" |  "bool"
 
-EXPRESSION		    ::= <IDENTIFIER>["++" | "--"] | "("<EXPRESSION>")" | <EXPRESSION> <OPERATION> <EXPRESSION> | <EXPRESSION>["++" | "--" | "!"]
-OPERATION		    ::= "+" | "-" | "*" | "/" | "%" | "!" | "" | "" | "&" | "|" | "^" | "not" | "and" | "or"
+IF_STATEMENT            ::= <IF> {<ELSE_IF>} [<ELSE>]
+IF                      ::= "Given" "("<EXPRESSION>")" <BLOCK>
+ELSE_IF                 ::= "However when" "("<EXPRESSION>")" <BLOCK>
+ELSE                    ::= "Otherwise" <BLOCK>
 
-COMPARISON		    ::= "==" | "!=" | "" | "" | "=" | "="
+WHILE_STATEMENT         ::= "Quest" "("<EXPRESSION>")" <BLOCK>
+
+EXPRESSION              ::= <LITERAL> | <IDENTIFIER> | "("<EXPRESSION>")" | (<LITERAL> | <IDENTIFIER>) <BINARY_OPERATION> <EXPRESSION> | <UNARY_OPERATION> <EXPRESSION>
+
+BINARY_OPERATION        ::= "+" | "-" | "*" | "/" | "%" | "**" | "<<" | ">>" | "&" | "|" | "^" | "and" | "or" | "xor" | <COMPARISON>
+COMPARISON              ::= "==" | "!=" | ">" | "<" | ">=" | "<="
+UNARY_OPERATION         ::= "~" | "not"
+
+FUNCTION_STATEMENT      ::= "Prologue" <TYPE> <IDENTIFIER> "(" <TYPE> <IDENTIFIER> {"," <TYPE> <IDENTIFIER>} ")" <BLOCK>
+
+RETURN                  ::= <EXPRESSION> ", go back to the abyss!"
