@@ -13,19 +13,19 @@
 
 LITERAL                 ::= INTEGER | FLOAT | UNSIGNED_FLOAT | UNSIGNED_INTEGER | BOOLEAN | CHARACTER | STRING
 
-BOOLEAN                 ::= "True" | "False"
+BOOLEAN                 ::= "good" | "evil"
 
 SYMBOL                  ::= ? Any ASCII character ?
 STRING                  ::= '"' 0*254<SYMBOL> '"'
 CHARACTER               ::= "'" <SYMBOL> "'"
 
-INTEGER                 ::= ["-"] <UNSIGNED_INTEGER>
-FLOAT                   ::= ["-"] <UNSIGNED_FLOAT>
-UNSIGNED_INTEGER        ::= <DIGIT_EXCEPT_0> {<DIGIT>}
-UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
+INTEGER                 ::= <SIGNAL> <UNSIGNED_INTEGER>
+FLOAT                   ::= <SIGNAL> <UNSIGNED_FLOAT>
+SIGNAL                  ::= "+" | "-"
+UNSIGNED_INTEGER        ::= {<DIGIT>}
+UNSIGNED_FLOAT          ::= {<DIGIT} "." {<DIGIT>}
 
-DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
-DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+DIGIT_EXCEPT_0          ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
 IDENTIFIER              ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
 
@@ -59,7 +59,7 @@ WHILE_STATEMENT         ::= "Quest" "("<EXPRESSION>")" <BLOCK>
 EXPRESSION              ::= <LITERAL> | <IDENTIFIER> | "("<EXPRESSION>")" | (<LITERAL> | <IDENTIFIER>) <BINARY_OPERATION> <EXPRESSION> | <UNARY_OPERATION> <EXPRESSION>
 
 BINARY_OPERATION        ::= "+" | "-" | "*" | "/" | "%" | "**" | "&" | "|" | "^" | "and" | "or" | "xor" | <COMPARISON>
-COMPARISON              ::= "==" | "!=" | ">" | "<" | ">=" | "<="
+COMPARISON              ::= "==" | "<>" | ">" | "<" | ">=" | "<="
 UNARY_OPERATION         ::= "~" | "not"
 
 FUNCTION_STATEMENT      ::= "Prologue" <TYPE> <IDENTIFIER> "(" <TYPE> <IDENTIFIER> {"," <TYPE> <IDENTIFIER>} ")" <BLOCK>
