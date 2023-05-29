@@ -1,0 +1,73 @@
+(* Gramatica da linguagem Middle Earth ++ (MEPP), feita por:
+  > Douglas Sonntag
+  > Gustavo Speraffico
+  > Luana Campos
+  > Lucas Dalle
+
+ Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
+ 
+ Nome da linguagem e extensao de arquivo:
+  MIDDLE EARTH ++
+  .MEPP
+*)
+
+(*  TO DO LIST:
+    trocar a transição <EXPRESSION> -> <UNARY_OPERATION> <EXPRESSION>
+    para <EXPRESSION> -> <UNARY_OPERATION> ( <IDENTIFIER> | <LITERAL> )
+
+*)
+
+LITERAL                 ::= INTEGER | FLOAT | UNSIGNED_FLOAT | UNSIGNED_INTEGER | BOOLEAN | CHARACTER | STRING
+
+BOOLEAN                 ::= "True" | "False"
+
+SYMBOL                  ::= ? Any ASCII character ?
+STRING                  ::= '"' 0*254<SYMBOL> '"'
+CHARACTER               ::= "'" <SYMBOL> "'"
+
+INTEGER                 ::= ["-"] <UNSIGNED_INTEGER>
+FLOAT                   ::= ["-"] <UNSIGNED_FLOAT>
+UNSIGNED_INTEGER        ::= <DIGIT_EXCEPT_0> {<DIGIT>}
+UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
+
+DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
+DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+IDENTIFIER              ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
+
+ALPHABET                ::= <LOWER_CASE> | <UPPER_CASE>
+LOWER_CASE              ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
+                        | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+UPPER_CASE              ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
+                        | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+
+(*------------------------------------------------------------------------------------*)
+PROGRAM                 ::= <DECLARATION_STATEMENT> <PROGRAM> | <FUCTION_STATEMENT> <PROGRAM> | <MAIN_STATEMENT>
+MAIN_STATEMENT          ::= "The journey begins here" <BLOCK>
+BLOCK                   ::= "{" {<STATEMENT>} "}"
+STATEMENT               ::= <ASSIGNMENT_STATEMENT> | <DECLARATION_STATEMENT> | <IF_STATEMENT> | <WHILE_STATEMENT>
+
+ASSIGNMENT_STATEMENT    ::= <ASSIGNMENT> ';'
+ASSIGNMENT              ::= <IDENTIFIER> '=' (<ASSIGNMENT> | <EXPRESSION>)
+
+DECLARATION_STATEMENT   ::= <TYPE> <IDENTIFIER> {"," <IDENTIFIER>} ";"
+
+TYPE                    ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari"
+                        #= "int" |"unsigned"| "short" | "long"  |   "char"   |  "string" |  "bool"
+
+IF_STATEMENT            ::= <IF> {<ELSE_IF>} [<ELSE>]
+IF                      ::= "Given" "("<EXPRESSION>")" <BLOCK>
+ELSE_IF                 ::= "However when" "("<EXPRESSION>")" <BLOCK>
+ELSE                    ::= "Otherwise" <BLOCK>
+
+WHILE_STATEMENT         ::= "Quest" "("<EXPRESSION>")" <BLOCK>
+
+EXPRESSION              ::= <LITERAL> | <IDENTIFIER> | "("<EXPRESSION>")" | (<LITERAL> | <IDENTIFIER>) <BINARY_OPERATION> <EXPRESSION> | <UNARY_OPERATION> <EXPRESSION>
+
+BINARY_OPERATION        ::= "+" | "-" | "*" | "/" | "%" | "**" | "&" | "|" | "^" | "and" | "or" | "xor" | <COMPARISON>
+COMPARISON              ::= "==" | "!=" | ">" | "<" | ">=" | "<="
+UNARY_OPERATION         ::= "~" | "not"
+
+FUNCTION_STATEMENT      ::= "Prologue" <TYPE> <IDENTIFIER> "(" <TYPE> <IDENTIFIER> {"," <TYPE> <IDENTIFIER>} ")" <BLOCK>
+
+RETURN                  ::= <EXPRESSION> ", go back to the abyss!"

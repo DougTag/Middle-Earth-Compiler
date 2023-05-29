@@ -1,26 +1,14 @@
-#include "trie.h"
+#include "trie.hpp"
 
-namespace std {
-    class Trie::Node {
-        unordered_map<char, int> children;
-        bool terminal = false;
-
-        public:
-        Node(bool isTerminal = false) { terminal = isTerminal; }
-        bool getTerminal() { return terminal; }
-        void setTerminal(bool b) { terminal = b; }
-        void insert(char c, int i) { children[c] = i; }
-        bool hasChild(char c) { return children.count(c) > 0; }
-        int operator[](char c) { return children.at(c); }
-    };
-
+namespace std 
+{
     Trie::Trie() {
         curNode = 0;
-        v.push_back(Node());
+        v.push_back(Node()); // Raíz
     }
-    Trie::Trie(initializer_list<string> lst) {
-        *this = Trie();
-        for(auto s : lst){ this->insert(s); }
+    Trie::Trie(initializer_list<string> lst) : Trie::Trie() {
+        v.push_back(Node()); // Raíz
+        for(auto s : lst) { this->insert(s); }
     }
 
     void Trie::insert(const string& s) {
@@ -28,7 +16,7 @@ namespace std {
         for(int i = 0; i<s.length(); ++i) {
             if(not v[current].hasChild(s[i])) {
                 v.push_back(Node());
-                v[current].insert(s[i], v.size());
+                v[current].insert(s[i], v.size()-1);
             }
             current = v[current][s[i]];
             if(i == s.length()-1) {
