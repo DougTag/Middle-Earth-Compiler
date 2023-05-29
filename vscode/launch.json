@@ -7,7 +7,7 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "codigo.mepp"
+        "codigoTeste.mepp"
       ],
       "stopAtEntry": false,
       "externalConsole": false,
