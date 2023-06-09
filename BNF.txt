@@ -11,92 +11,163 @@
   .MEPP
 *)
 
-(*  TO DO LIST:
-	Corrigir <EXPRESSION> e <IF_STATEMENT> para não gerarem ambiguidade e não terem recursão a esquerda.
-*)
-
-ALPHABET                ::= <LOWER_CASE> | <UPPER_CASE>
-LOWER_CASE              ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
+<ALPHABET>              ::= <LOWER_CASE> | <UPPER_CASE>
+<LOWER_CASE>            ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
                           | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-UPPER_CASE              ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
+<UPPER_CASE>            ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
 						  | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
 
-DIGIT                   ::= "0" | <DIGIT_EXCEPT_0>
-DIGIT_EXCEPT_0          ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<DIGIT>                 ::= "0" | <DIGIT_EXCEPT_0>
+<DIGIT_EXCEPT_0>        ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-LITERAL                 ::= INTEGER | UNSIGNED_INTEGER | FLOAT | UNSIGNED_FLOAT | BOOLEAN | CHARACTER | STRING
+<LITERAL>               ::= <INT_LITERAL> | <FLOAT_LITERAL> | <BOOL_LITERAL> | <CHAR_LITERAL> | <STRING_LITERAL>
 
-INTEGER                 ::= <UNSIGNED_INTEGER>
-						  | "-" <UNSIGNED_INTEGER>
-						  | "+" <UNSIGNED_INTEGER>
+<INT_LITERAL>           ::= <DIGIT> { <DIGIT> }
 
-UNSIGNED_INTEGER        ::= <DIGIT_EXCEPT_0> {<DIGIT>}
+<FLOAT_LITERAL>         ::= {<DIGIT>} "." <DIGIT>{<DIGIT>}
 
-FLOAT                   ::= ["-"] <UNSIGNED_FLOAT>
-UNSIGNED_FLOAT          ::= <DIGIT_EXCEPT_0> {<DIGIT} "." {<DIGIT>}
+<BOOL_LITERAL>          ::= "good" | "evil"
 
-BOOLEAN                 ::= "True" | "False"
+<STRING_LITERAL>        ::= '"' {<SYMBOL>} '"'
+<CHAR_LITERAL>			::= "'" <SYMBOL> "'"
+<SYMBOL>                ::= ? Any ASCII character ?
 
-STRING                  ::= '"' 0*254<SYMBOL> '"'
-CHARACTER               ::= "'" <SYMBOL> "'"
-SYMBOL                  ::= ? Any ASCII character ?
+<IDENTIFIER>            ::= (<ALPHABET> | "_") 0*254(<ALPHABET> | <DIGIT> | "_")
 
-IDENTIFIER              ::= <ALPHABET> 0*254(<ALPHABET> | <DIGIT> | "_")
+<TYPE>                  ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari"
+                        # = "int" |"unsigned"| "short"  | "long"  |   "char"   |  "string"  |  "bool"
 
-(*------------------------------------------------------------------------------------*)
 
-PROGRAM                 ::= <DECLARATION_STATEMENT> <PROGRAM> 
+(*----------------------------------------- Símbolo inicial -------------------------------------------*)
+
+<PROGRAM>               ::= <DECLARATION_STATEMENT> <PROGRAM> 
 						  | <FUCTION_STATEMENT> <PROGRAM> 
 						  | <MAIN_STATEMENT>
 
-FUNCTION_STATEMENT      ::= "Prologue" <TYPE> <IDENTIFIER> "(" <TYPE> <IDENTIFIER> {"," <TYPE> <IDENTIFIER>} ")" <BLOCK>
 
-RETURN                  ::= <EXPRESSION> ", go back to the abyss!"
+<FUNCTION_STATEMENT>    ::= "Journey" <TYPE> <IDENTIFIER> "(" <FUNCTION_ARGUMENTS> ")" <BLOCK>
+<FUNCTION_ARGUMENTS>    ::= <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
+                          | ε
+<FUNCTION_ARGUMENTS2>   ::= "," <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
+                          | ε
 
-MAIN_STATEMENT          ::= "The journey begins here" <BLOCK>
 
-BLOCK					::= "{" <STATEMENTS> "}"
-						  | <STATEMENT>
+
+<MAIN_STATEMENT>        ::= "The journey begins here" <BLOCK>
+
+<BLOCK>					::= "{" <STATEMENTS> "}"
+						  | <STATEMENT_TYPE>
 						  | ";"
 
-STATEMENTS				::= <STATEMENT> <STATEMENTS> 
+<STATEMENTS>            ::= <STATEMENT_TYPE> <STATEMENTS> 
 						  | ε
 
-STATEMENT               ::= <DECLARATION_STATEMENT>
+<STATEMENT_TYPE>		::= <DECLARATION_STATEMENT>
 						  | <ASSIGNMENT_STATEMENT>
-						  | <IF_STATEMENT>
-						  | <WHILE_STATEMENT>
+						  | <IF_STATEMENT> 
+                          | <WHILE_STATEMENT>
+                          | <RETURN_STATEMENT>
 
-ASSIGNMENT_STATEMENT    ::= <ASSIGNMENT> ";"
-ASSIGNMENT				::= <IDENTIFIER> "=" <ASSIGNMENT>
-						::= <IDENTIFIER> "=" <EXPRESSION>
+<DECLARATION_STATEMENT> ::= <TYPE> <IDENTIFIER> <INITIALIZATION> ";"
+<INITIALIZATION>		::= "=" <EXPRESSION> <MULTIPLE_DECLARATION>
+						  | <MULTIPLE_DECLARATION>
+<MULTIPLE_DECLARATION>	::= "," <IDENTIFIER> <INITIALIZATION>
+						  | ε
 
-DECLARATION_STATEMENT   ::= <DECLARATION> ";"
-DECLARATION				::= <TYPE> <IDENTIFIER_SEQUENCE>
-IDENTIFIER_SEQUENCE		::= <IDENTIFIER> "," <IDENTIFIER_SEQUENCE>
-						  | <IDENTIFIER>
 
-TYPE                    ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari"
-                        # = "int" |"unsigned"| "short"  | "long"  |   "char"   |  "string"  |  "bool"
+<ASSIGNMENT_STATEMENT> 	::= <IDENTIFIER> <IDENTIFIER_LIST> <ASSIGNMENT_TYPE> <EXPRESSION> ";"
+<IDENTIFIER_LIST>		::= "," <IDENTIFIER> <IDENTIFIER_LIST>
+					  	  | ε
+<ASSIGNMENT_TYPE>		::=  "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "~=" | "&=" | "^=" | "|="
 
-IF_STATEMENT			::= <IF> <ELSE_IF_STATEMENT>
-
-ELSE_IF_STATEMENT		::= <ELSE_IF> <ELSE_IF_STATEMENT>
+<IF_STATEMENT>			::= <IF> <ELSE_IF_STATEMENT>
+<ELSE_IF_STATEMENT>		::= <ELSE_IF> <ELSE_IF_STATEMENT>
 					  	  | <ELSE>
 					  	  | ε
 
-IF						::= "Given" "("<EXPRESSION>")" <BLOCK>
-ELSE_IF					::= "However when" "("<EXPRESSION>")" <BLOCK>
-ELSE					::= "Otherwise" <BLOCK>
+<IF>                    ::= "Given" "("<EXPRESSION>")" <BLOCK>
+<ELSE_IF>               ::= "However when" "("<EXPRESSION>")" <BLOCK>
+<ELSE>					::= "Otherwise" <BLOCK>
 
-WHILE_STATEMENT			::= "Quest" "("<EXPRESSION>")" <BLOCK>
+<WHILE_STATEMENT>       ::= "Quest" "("<EXPRESSION>")" <BLOCK>
 
-EXPRESSION				::= "("<EXPRESSION>")"
-					  	  | <UNARY_OPERATION> <EXPRESSION>
-					  	  | <EXPRESSION> <BINARY_OPERATION> <EXPRESSION>
-					  	  | <LITERAL>
-					  	  | <IDENTIFIER>
+<RETURN_STATEMENT>      ::= "Go back to the abyss" <RETURN_STATEMENT2>
+<RETURN_STATEMENT2>     ::= <EXPRESSION> ";"
+						  | ";"
 
-BINARY_OPERATION		::= "+" | "-" | "*" | "/" | "%" | "**" | "&" | "|" | "^" | "and" | "or" | "xor" | <COMPARISON>
-COMPARISON				::= "==" | "!=" | ">" | "<" | ">=" | "<="
-UNARY_OPERATION			::= "~" | "not" | "+" | "-"
+(********************************)
+(* [Precedência dos operadores] *)
+(********************************)
+(*             ( )              *)
+(*    +unario -unario not ~     *)
+(*              **              *)		
+(*              %               *)		
+(*             *  /             *)
+(*             +  -             *)
+(*          < <=  > >=          *)
+(*            ==  <>            *)	
+(*              &               *)
+(*              ^               *)
+(*              |               *)
+(*             and              *)
+(*             xor              *)
+(*              or              *)
+(********************************)
+
+<EXPRESSION>			::= <OR_EXPRESSION>
+
+<OR_EXPRESSION>			::= <XOR_EXPRESSION> <OR_EXPRESSION2>
+<OR_EXPRESSION2>		::= "or" <OR_EXPRESSION>
+					  	  | ε
+<XOR_EXPRESSION>		::= <AND_EXPRESSION> <XOR_EXPRESSION2>
+<XOR_EXPRESSION2>		::= "xor" <XOR_EXPRESSION>
+					  	  | ε
+<AND_EXPRESSION>		::= <BIT_OR_EXPRESSION> <AND_EXPRESSION2>
+<AND_EXPRESSION2>		::= "and" <AND_EXPRESSION>
+					  	  | ε
+<BIT_OR_EXPRESSION>		::= <BIT_XOR_EXPRESSION> <BIT_OR_EXPRESSION2>
+<BIT_OR_EXPRESSION2>	::= "|" <BIT_OR_EXPRESSION>
+					  	  | ε
+<BIT_XOR_EXPRESSION>	::= <BIT_AND_EXPRESSION> <BIT_XOR_EXPRESSION2>
+<BIT_XOR_EXPRESSION2>	::= "^" <BIT_XOR_EXPRESSION>
+					  	  | ε
+<BIT_AND_EXPRESSION>	::= <EQUALITY_EXPRESSION> <BIT_AND_EXPRESSION2>
+<BIT_AND_EXPRESSION2>	::= "&" <BIT_AND_EXPRESSION>
+					  	  | ε
+<EQUALITY_EXPRESSION>	::= <INEQUALITY_EXPRESSION> <EQUALITY_EXPRESSION2>
+<EQUALITY_EXPRESSION2>	::= "==" <EQUALITY_EXPRESSION>
+						  | "<>" <EQUALITY_EXPRESSION>
+					  	  | ε
+<INEQUALITY_EXPRESSION>	::= <SUM_EXPRESSION> <INEQUALITY_EXPRESSION2>
+<INEQUALITY_EXPRESSION2>::= "<" <INEQUALITY_EXPRESSION>
+						  | "<=" <INEQUALITY_EXPRESSION>
+						  | ">" <INEQUALITY_EXPRESSION>
+						  | ">=" <INEQUALITY_EXPRESSION>
+					  	  | ε
+<SUM_EXPRESSION>		::= <MULTIPLIC_EXPRESSION> <SUM_EXPRESSION2>
+<SUM_EXPRESSION2>		::= "+" <SUM_EXPRESSION>
+						  | "-" <SUM_EXPRESSION>
+					  	  | ε
+<MULTIPLIC_EXPRESSION>	::= <MODULO_EXPRESSION> <MULTIPLIC_EXPRESSION2>
+<MULTIPLIC_EXPRESSION2>	::= "*" <MULTIPLIC_EXPRESSION>
+						  | "/" <MULTIPLIC_EXPRESSION>
+					  	  | ε
+<MODULO_EXPRESSION>		::= <POWER_EXPRESSION> <MODULO_EXPRESSION2>
+<MODULO_EXPRESSION2>	::= "%" <MODULO_EXPRESSION>
+					  	  | ε
+<POWER_EXPRESSION>		::= <UNARY_EXPRESSION> <POWER_EXPRESSION2>
+<POWER_EXPRESSION2>		::= "**" <POWER_EXPRESSION>
+					  	  | ε
+<UNARY_EXPRESSION>		::= "+" <UNARY_EXPRESSION>
+						  | "-" <UNARY_EXPRESSION>
+						  | "~" <UNARY_EXPRESSION>
+						  | "(" <EXPRESSION> ")"
+						  | <IDENTIFIER> "(" <ARGUMENTS> ")"
+						  | <IDENTIFIER>
+						  | <LITERAL>
+
+<ARGUMENTS>				::= <EXPRESSION> <ARGUMENTS2>
+					  	  | ε
+<ARGUMENTS2>			::= "," <EXPRESSION> <ARGUMENTS2>
+					  	  | ε
+	
