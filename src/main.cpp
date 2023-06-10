@@ -14,7 +14,6 @@ string getExtension(string &s) {
     else {
         return s.substr(s.find_last_of('.'), string::npos);
     }
-    //return string(find(s.begin(), s.end(), '.'), s.end());
 }
 
 int main(int argc, char *argv[]) {

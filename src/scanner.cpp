@@ -1,5 +1,4 @@
 #include "scanner.hpp"
-#include <iostream> // TIRAR DEPOIS
 
 namespace std {
     string Scanner::error(const string &msg, const int lin , const int col) {

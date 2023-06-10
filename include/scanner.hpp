@@ -27,22 +27,22 @@ namespace std {
             '\n','\t','\v','\f','\r',' '
         };
         unordered_set<char> delimiters = { // Set com todos os delimiters
-            '(', ')', '{', '}', ',', ';'
+            '(', ')', '{', '}', ',', ';', '!'
         };
         unordered_set<string> operators = { // Set com todos os operators
             "+", "-", "*", "/", "%", "**", "~", "|", "&", "^",
             "+=", "-=", "*=", "/=", "%=", "**=", "~=", "|=", "&=", "^=", "=",
-            "==", "!=", "<", ">", "<=", ">=",
+            "==", "<>", "<", ">", "<=", ">=",
         };
         unordered_set<char> operatorsCharacters = { // Set com os caracteres permitidos para os operators
             '=', '+', '-', '*', '/', '%', '~', '|', '&', '^',
-            '!', '>', '<'
+            '>', '<'
         };
         unordered_set<string> keywords = { // Set com as palavras/frases reservadas
             "or", "and", "not", "xor", "good", "evil",
-            "draugr", "hobbit", "troll", "wyvern", "dragon", "istari", "tengwarr", "sindarin", "darkness",
-            "The journey begins here", "Quest", "The quest continues", "You shall not pass!", "Given",
-            "However when", "Otherwise", "go back to the abyss!"
+            "draugr", "hobbit", "elf", "troll", "wyvern", "dragon", "istari", "tengwarr", "sindarin", "darkness",
+            "The journey begins here", "Quest", "The quest continues", "You shall not pass", "Given",
+            "However when", "Otherwise", "Go back to the abyss", "Prologue"
         };
         unordered_map<string, string> sequence2tokenType = { // Map da cadeia para o respectivo tipo de token
             {"+", "TK_ADD"},
@@ -69,7 +69,7 @@ namespace std {
             {"^=", "TK_BITWISE_XOR_ASSIGN"},
 
             {"==", "TK_EQUAL"},
-            {"!=", "TK_DIFFERENT"},
+            {"<>", "TK_DIFFERENT"},
             {"<", "TK_LESS"},
             {"<=", "TK_LESS_EQUAL"},
             {">", "TK_GREATER"},
@@ -108,13 +108,14 @@ namespace std {
             {"Given", "TK_IF"},
             {"However when", "TK_ELSE_IF"},
             {"Otherwise", "TK_ELSE"},
-            {"go back to the abyss!", "TK_RETURN"}
+            {"Go back to the abyss", "TK_RETURN"},
+            {"Prologue", "TK_FUNCTION"}
         };
         Trie tree = {
             "or", "and", "not", "xor", "good", "evil",
             "draugr", "hobbit", "elf", "troll", "wyvern", "dragon", "istari", "tengwarr", "sindarin", "darkness",
-            "The journey begins here", "Quest", "The quest continues", "You shall not pass!", "Given",
-            "However when", "Otherwise", "go back to the abyss!"
+            "The journey begins here", "Quest", "The quest continues", "You shall not pass", "Given",
+            "However when", "Otherwise", "Go back to the abyss", "Prologue"
         };
 
         string error(const string &msg, const int lin, const int col);

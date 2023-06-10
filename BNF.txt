@@ -1,14 +1,14 @@
-(* Gramatica da linguagem Middle Earth ++ (MEPP), feita por:
-  > Douglas Sonntag
-  > Gustavo Speraffico
-  > Luana Campos
-  > Lucas Dalle
+(* Gramatica da linguagem Middle Earth ++ (MEPP), feita por:
+    > Douglas Sonntag
+    > Gustavo Speraffico
+    > Luana Campos
+    > Lucas Dalle
 
- Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
- 
- Nome da linguagem e extensao de arquivo:
-  MIDDLE EARTH ++
-  .MEPP
+ Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
+ 
+ Nome da linguagem e extensao de arquivo:
+  MIDDLE EARTH ++
+  .MEPP
 *)
 
 <ALPHABET>              ::= <LOWER_CASE> | <UPPER_CASE>
@@ -24,19 +24,20 @@
 
 <INT_LITERAL>           ::= <DIGIT> { <DIGIT> }
 
-<FLOAT_LITERAL>         ::= {<DIGIT>} "." <DIGIT>{<DIGIT>}
+<FLOAT_LITERAL>         ::= {<DIGIT>} "." {<DIGIT>}
 
 <BOOL_LITERAL>          ::= "good" | "evil"
 
 <STRING_LITERAL>        ::= '"' {<SYMBOL>} '"'
 <CHAR_LITERAL>			::= "'" <SYMBOL> "'"
-<SYMBOL>                ::= ? Any ASCII character ?
+<SYMBOL>                ::= ? (*Any ASCII character*) ?
 
 <IDENTIFIER>            ::= (<ALPHABET> | "_") 0*254(<ALPHABET> | <DIGIT> | "_")
 
-<TYPE>                  ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari"
-                        # = "int" |"unsigned"| "short"  | "long"  |   "char"   |  "string"  |  "bool"
+<TYPE>                  ::= "elf" | "draugr" | "hobbit" | "troll" | "tengwarr" | "sindarin" | "istari" | "wyvern" | "dragon" | "darkness"
+                        # = "int" |"unsigned"| "short"  | "long"  |   "char"   |  "string"  |  "bool"  | "float"  | "double" |   "void"
 
+<END>					::= ";" | "!" # Caracteres delimitadores de final de statement
 
 (*----------------------------------------- Símbolo inicial -------------------------------------------*)
 
@@ -45,19 +46,21 @@
 						  | <MAIN_STATEMENT>
 
 
-<FUNCTION_STATEMENT>    ::= "Journey" <TYPE> <IDENTIFIER> "(" <FUNCTION_ARGUMENTS> ")" <BLOCK>
+<FUNCTION_STATEMENT>    ::= "Prologue" <TYPE> <IDENTIFIER> "(" <FUNCTION_ARGUMENTS> ")" <BLOCK>
 <FUNCTION_ARGUMENTS>    ::= <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
                           | ε
 <FUNCTION_ARGUMENTS2>   ::= "," <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
                           | ε
 
 
-
 <MAIN_STATEMENT>        ::= "The journey begins here" <BLOCK>
+
+<BREAK_STATEMENT>		::= "You shall not pass" <END>
+<CONTINUE_STATEMENT>	::= "The quest continues" <END>
 
 <BLOCK>					::= "{" <STATEMENTS> "}"
 						  | <STATEMENT_TYPE>
-						  | ";"
+						  | <END>
 
 <STATEMENTS>            ::= <STATEMENT_TYPE> <STATEMENTS> 
 						  | ε
@@ -66,16 +69,18 @@
 						  | <ASSIGNMENT_STATEMENT>
 						  | <IF_STATEMENT> 
                           | <WHILE_STATEMENT>
+                          | <BREAK_STATEMENT>
+                          | <CONTINUE_STATEMENT>
                           | <RETURN_STATEMENT>
 
-<DECLARATION_STATEMENT> ::= <TYPE> <IDENTIFIER> <INITIALIZATION> ";"
+<DECLARATION_STATEMENT> ::= <TYPE> <IDENTIFIER> <INITIALIZATION> <END>
 <INITIALIZATION>		::= "=" <EXPRESSION> <MULTIPLE_DECLARATION>
 						  | <MULTIPLE_DECLARATION>
 <MULTIPLE_DECLARATION>	::= "," <IDENTIFIER> <INITIALIZATION>
 						  | ε
 
 
-<ASSIGNMENT_STATEMENT> 	::= <IDENTIFIER> <IDENTIFIER_LIST> <ASSIGNMENT_TYPE> <EXPRESSION> ";"
+<ASSIGNMENT_STATEMENT> 	::= <IDENTIFIER> <IDENTIFIER_LIST> <ASSIGNMENT_TYPE> <EXPRESSION> <END>
 <IDENTIFIER_LIST>		::= "," <IDENTIFIER> <IDENTIFIER_LIST>
 					  	  | ε
 <ASSIGNMENT_TYPE>		::=  "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "~=" | "&=" | "^=" | "|="
@@ -92,8 +97,8 @@
 <WHILE_STATEMENT>       ::= "Quest" "("<EXPRESSION>")" <BLOCK>
 
 <RETURN_STATEMENT>      ::= "Go back to the abyss" <RETURN_STATEMENT2>
-<RETURN_STATEMENT2>     ::= <EXPRESSION> ";"
-						  | ";"
+<RETURN_STATEMENT2>     ::= <EXPRESSION> <END>
+						  | <END>
 
 (********************************)
 (* [Precedência dos operadores] *)
