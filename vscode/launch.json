@@ -7,11 +7,11 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "codigoTeste.mepp"
+        "codigo.mepp"
       ],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/douglas/faculdade/compiladores/compilador",
+      "cwd": "${fileDirname}",
       "program": "${workspaceFolder}/${workspaceFolderBasename}",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
