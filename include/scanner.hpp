@@ -7,11 +7,20 @@
 #include <utility> // Contem o tipo pair<T,T>
 #include <sstream> // Contem stringstream
 #include <limits>
+#include <tuple>
 #include "trie.hpp"
 
-#define MAX_IDENTIFIER_SIZE 255
+#define MAX_IDENTIFIER_SIZE 31
 
 namespace std {
+    typedef struct scannerOutput {
+        int line;
+        int column;
+        string token;
+        string sequence;
+        string error;
+    } scannerOutput;
+
     class Scanner {
     private:
         ifstream input;
@@ -23,7 +32,7 @@ namespace std {
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             '_', '!', '#', '%', '&', '*', '(', ')', '-', '+', '=', '{', '}',
-            ';', '\"','\'','/', '^', '~', '|',
+            ';', '\"','\'','/', '^', '~', '|', ',', '.', '<', '>',
             '\n','\t','\v','\f','\r',' '
         };
         unordered_set<char> delimiters = { // Set com todos os delimiters
@@ -81,6 +90,7 @@ namespace std {
             {"}", "TK_CLOSE_BRACE"},
             {";", "TK_SEMICOLON"},
             {",", "TK_COMMA"},
+            {"!", "TK_EXCLAMATION"},
 
             {"or", "TK_OR"},
             {"and", "TK_AND"},
@@ -104,7 +114,7 @@ namespace std {
             {"The journey begins here", "TK_MAIN"},
             {"Quest", "TK_WHILE"},
             {"The quest continues", "TK_CONTINUE"},
-            {"You shall not pass!", "TK_BREAK"},
+            {"You shall not pass", "TK_BREAK"},
             {"Given", "TK_IF"},
             {"However when", "TK_ELSE_IF"},
             {"Otherwise", "TK_ELSE"},
@@ -120,16 +130,16 @@ namespace std {
 
         string error(const string &msg, const int lin, const int col);
         string warning(const string &msg, const int lin, const int col);
-        string formToken(const string& tk, const string& value);
-        void jumpToNextToken();
+        void jumpWhitespace();
 
     public:
         Scanner();
         Scanner(const string &fileName);
         void open(const string &fileName);
         bool eof();
-        pair<string,string> getToken();
+        scannerOutput getToken();
     };
+
 }
 
 #endif // SCANNER_HEADER_GUARD

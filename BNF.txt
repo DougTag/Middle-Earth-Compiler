@@ -5,6 +5,7 @@
     > Lucas Dalle
 
  Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
+ Se trata de uma gramatica LL(1), para ser usada com um parser preditivo não recursivo.
  
  Nome da linguagem e extensao de arquivo:
   MIDDLE EARTH ++
@@ -55,8 +56,6 @@
 
 <MAIN_STATEMENT>        ::= "The journey begins here" <BLOCK>
 
-<BREAK_STATEMENT>		::= "You shall not pass" <END>
-<CONTINUE_STATEMENT>	::= "The quest continues" <END>
 
 <BLOCK>					::= "{" <STATEMENTS> "}"
 						  | <STATEMENT_TYPE>
@@ -85,9 +84,10 @@
 					  	  | ε
 <ASSIGNMENT_TYPE>		::=  "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "~=" | "&=" | "^=" | "|="
 
-<IF_STATEMENT>			::= <IF> <ELSE_IF_STATEMENT>
-<ELSE_IF_STATEMENT>		::= <ELSE_IF> <ELSE_IF_STATEMENT>
-					  	  | <ELSE>
+<IF_STATEMENT>			::= <IF> <IF_STATEMENT2> <IF_STATEMENT3>
+<IF_STATEMENT2>			::= <ELSE_IF> <IF_STATEMENT2>
+					  	  | ε
+<ELSE_IF_STATEMENT>		::= <ELSE>
 					  	  | ε
 
 <IF>                    ::= "Given" "("<EXPRESSION>")" <BLOCK>
@@ -95,6 +95,9 @@
 <ELSE>					::= "Otherwise" <BLOCK>
 
 <WHILE_STATEMENT>       ::= "Quest" "("<EXPRESSION>")" <BLOCK>
+
+<BREAK_STATEMENT>		::= "You shall not pass" <END>
+<CONTINUE_STATEMENT>	::= "The quest continues" <END>
 
 <RETURN_STATEMENT>      ::= "Go back to the abyss" <RETURN_STATEMENT2>
 <RETURN_STATEMENT2>     ::= <EXPRESSION> <END>
@@ -167,12 +170,11 @@
 						  | "-" <UNARY_EXPRESSION>
 						  | "~" <UNARY_EXPRESSION>
 						  | "(" <EXPRESSION> ")"
-						  | <IDENTIFIER> "(" <ARGUMENTS> ")"
-						  | <IDENTIFIER>
+						  | <IDENTIFIER> <UNARY_EXPRESSION2>
 						  | <LITERAL>
-
+<UNARY_EXPRESSION2>		::= "(" <ARGUMENTS> ")" # Argumentos de funções
+					  	  | ε
 <ARGUMENTS>				::= <EXPRESSION> <ARGUMENTS2>
 					  	  | ε
 <ARGUMENTS2>			::= "," <EXPRESSION> <ARGUMENTS2>
 					  	  | ε
-	

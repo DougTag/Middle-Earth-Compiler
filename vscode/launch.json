@@ -7,11 +7,11 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "codigo.mepp"
+        "codigoTeste.mepp"
       ],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "${fileDirname}",
+      "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/${workspaceFolderBasename}",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",

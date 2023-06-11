@@ -47,18 +47,13 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    try {
     while(not scanner.eof()) {
-        pair<string,string> token = scanner.getToken();
-        cout << "Token: " << token.first << endl;
-        if(token.second != "") {
-            cout << "   Error: " << token.second << endl;
+        scannerOutput token = scanner.getToken();
+        cout << "Token: " << token.token << endl;
+        cout << "Sequence: " << token.sequence << endl;
+        if(token.error != "") {
+            cout << "   Error: " << token.error << endl;
         }
-    }
-    }
-    catch(ifstream::failure &error) {
-        cout << "Deu erro: " << error.what() << endl;
-        cout << error.code() << endl;
     }
 
     return 0;

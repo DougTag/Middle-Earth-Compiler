@@ -1,0 +1,153 @@
+(* Gramatica da linguagem Middle Earth ++ (MEPP), feita por:
+    > Douglas Sonntag
+    > Gustavo Speraffico
+    > Luana Campos
+    > Lucas Dalle
+
+ Para a disciplina de Compiladores 2023/1 ofertada pelo professor Leandro Ensina.
+ 
+ Nome da linguagem e extensao de arquivo:
+  MIDDLE EARTH ++
+  .MEPP
+
+  Adaptação para receber os tokens do analisador léxico.
+*)
+
+<LITERAL>               ::= <INT_LITERAL> | <FLOAT_LITERAL> | <BOOL_LITERAL> | <CHAR_LITERAL> | <STRING_LITERAL>
+
+<INT_LITERAL>           ::= tk_int_literal
+
+<FLOAT_LITERAL>         ::= tk_float_literal
+
+<BOOL_LITERAL>          ::= tk_bool_literal
+
+<STRING_LITERAL>        ::= tk_string_literal
+<CHAR_LITERAL>			::= tk_char_literal
+
+<IDENTIFIER>            ::= tk_id
+
+<TYPE>                  ::= tk_int | tk_unsigned | tk_short | tk_long | tk_char | tk_string | tk_bool | tk_float | tk_double | tk_void
+
+<END>					::= tk_semicolon | tk_exclamation
+
+(*----------------------------------------- Símbolo inicial -------------------------------------------*)
+
+<PROGRAM>               ::= <DECLARATION_STATEMENT> <PROGRAM> 
+						  | <FUCTION_STATEMENT> <PROGRAM> 
+						  | <MAIN_STATEMENT>
+
+
+<FUNCTION_STATEMENT>    ::= tk_function <TYPE> <IDENTIFIER> tk_open_parenthesis <FUNCTION_ARGUMENTS> tk_close_parenthesis <BLOCK>
+<FUNCTION_ARGUMENTS>    ::= <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
+                          | ε
+<FUNCTION_ARGUMENTS2>   ::= tk_comma <TYPE> <IDENTIFIER> <FUNCTION_ARGUMENTS2>
+                          | ε
+
+
+<MAIN_STATEMENT>        ::= tk_main <BLOCK>
+
+
+<BLOCK>					::= tk_open_brace <STATEMENTS> tk_close_brace
+						  | <STATEMENT_TYPE>
+						  | <END>
+
+<STATEMENTS>            ::= <STATEMENT_TYPE> <STATEMENTS> 
+						  | ε
+
+<STATEMENT_TYPE>		::= <DECLARATION_STATEMENT>
+						  | <ASSIGNMENT_STATEMENT>
+						  | <IF_STATEMENT> 
+                          | <WHILE_STATEMENT>
+                          | <BREAK_STATEMENT>
+                          | <CONTINUE_STATEMENT>
+                          | <RETURN_STATEMENT>
+
+<DECLARATION_STATEMENT> ::= <TYPE> <IDENTIFIER> <INITIALIZATION> <END>
+<INITIALIZATION>		::= tk_assign <EXPRESSION> <MULTIPLE_DECLARATION>
+						  | <MULTIPLE_DECLARATION>
+<MULTIPLE_DECLARATION>	::= tk_comma <IDENTIFIER> <INITIALIZATION>
+						  | ε
+
+
+<ASSIGNMENT_STATEMENT> 	::= <IDENTIFIER> <IDENTIFIER_LIST> <ASSIGNMENT_TYPE> <EXPRESSION> <END>
+<IDENTIFIER_LIST>		::= tk_comma <IDENTIFIER> <IDENTIFIER_LIST>
+					  	  | ε
+<ASSIGNMENT_TYPE>		::=  tk_assign | tk_add_assign | tk_sub_assign | tk_mult_assign 
+						  | tk_div_assign | tk_rest_assign | tk_pow_assign | tk_bitwise_not_assign 
+						  | tk_bitwise_and_assign | tk_bitwise_xor_assign | tk_bitwise_or_assign
+
+<IF_STATEMENT>			::= <IF> <IF_STATEMENT2> <IF_STATEMENT3>
+<IF_STATEMENT2>			::= <ELSE_IF> <IF_STATEMENT2>
+					  	  | ε
+<ELSE_IF_STATEMENT>		::= <ELSE>
+					  	  | ε
+
+<IF>                    ::= tk_if tk_open_parenthesis <EXPRESSION> tk_close_parenthesis <BLOCK>
+<ELSE_IF>               ::= tk_else_if tk_open_parenthesis <EXPRESSION>tk_close_parenthesis <BLOCK>
+<ELSE>					::= tk_else <BLOCK>
+
+<WHILE_STATEMENT>       ::= tk_while tk_open_parenthesis <EXPRESSION> tk_close_parenthesis <BLOCK>
+
+<BREAK_STATEMENT>		::= tk_break <END>
+<CONTINUE_STATEMENT>	::= tk_continue <END>
+
+<RETURN_STATEMENT>      ::= tk_return <RETURN_STATEMENT2>
+<RETURN_STATEMENT2>     ::= <EXPRESSION> <END>
+						  | <END>
+
+<EXPRESSION>			::= <OR_EXPRESSION>
+
+<OR_EXPRESSION>			::= <XOR_EXPRESSION> <OR_EXPRESSION2>
+<OR_EXPRESSION2>		::= tk_or <OR_EXPRESSION>
+					  	  | ε
+<XOR_EXPRESSION>		::= <AND_EXPRESSION> <XOR_EXPRESSION2>
+<XOR_EXPRESSION2>		::= tk_xor <XOR_EXPRESSION>
+					  	  | ε
+<AND_EXPRESSION>		::= <BIT_OR_EXPRESSION> <AND_EXPRESSION2>
+<AND_EXPRESSION2>		::= tk_and <AND_EXPRESSION>
+					  	  | ε
+<BIT_OR_EXPRESSION>		::= <BIT_XOR_EXPRESSION> <BIT_OR_EXPRESSION2>
+<BIT_OR_EXPRESSION2>	::= tk_bitwise_or <BIT_OR_EXPRESSION>
+					  	  | ε
+<BIT_XOR_EXPRESSION>	::= <BIT_AND_EXPRESSION> <BIT_XOR_EXPRESSION2>
+<BIT_XOR_EXPRESSION2>	::= tk_bitwise_xor <BIT_XOR_EXPRESSION>
+					  	  | ε
+<BIT_AND_EXPRESSION>	::= <EQUALITY_EXPRESSION> <BIT_AND_EXPRESSION2>
+<BIT_AND_EXPRESSION2>	::= tk_bitwise_and <BIT_AND_EXPRESSION>
+					  	  | ε
+<EQUALITY_EXPRESSION>	::= <INEQUALITY_EXPRESSION> <EQUALITY_EXPRESSION2>
+<EQUALITY_EXPRESSION2>	::= tk_equal <EQUALITY_EXPRESSION>
+						  | tk_different <EQUALITY_EXPRESSION>
+					  	  | ε
+<INEQUALITY_EXPRESSION>	::= <SUM_EXPRESSION> <INEQUALITY_EXPRESSION2>
+<INEQUALITY_EXPRESSION2>::= tk_less <INEQUALITY_EXPRESSION>
+						  | tk_less_equal <INEQUALITY_EXPRESSION>
+						  | tk_greater <INEQUALITY_EXPRESSION>
+						  | tk_greater_equal <INEQUALITY_EXPRESSION>
+					  	  | ε
+<SUM_EXPRESSION>		::= <MULTIPLIC_EXPRESSION> <SUM_EXPRESSION2>
+<SUM_EXPRESSION2>		::= tk_add <SUM_EXPRESSION>
+						  | tk_sub <SUM_EXPRESSION>
+					  	  | ε
+<MULTIPLIC_EXPRESSION>	::= <MODULO_EXPRESSION> <MULTIPLIC_EXPRESSION2>
+<MULTIPLIC_EXPRESSION2>	::= tk_mult <MULTIPLIC_EXPRESSION>
+						  | tk_div <MULTIPLIC_EXPRESSION>
+					  	  | ε
+<MODULO_EXPRESSION>		::= <POWER_EXPRESSION> <MODULO_EXPRESSION2>
+<MODULO_EXPRESSION2>	::= tk_rest <MODULO_EXPRESSION>
+					  	  | ε
+<POWER_EXPRESSION>		::= <UNARY_EXPRESSION> <POWER_EXPRESSION2>
+<POWER_EXPRESSION2>		::= tk_pow <POWER_EXPRESSION>
+					  	  | ε
+<UNARY_EXPRESSION>		::= tk_add <UNARY_EXPRESSION>
+						  | tk_sub <UNARY_EXPRESSION>
+						  | tk_bitwise_not <UNARY_EXPRESSION>
+						  | tk_open_parenthesis <EXPRESSION> tk_close_parenthesis
+						  | <IDENTIFIER> <UNARY_EXPRESSION2>
+						  | <LITERAL>
+<UNARY_EXPRESSION2>		::= tk_open_parenthesis <ARGUMENTS> tk_close_parenthesis
+					  	  | ε
+<ARGUMENTS>				::= <EXPRESSION> <ARGUMENTS2>
+					  	  | ε
+<ARGUMENTS2>			::= tk_comma <EXPRESSION> <ARGUMENTS2>
+					  	  | ε
