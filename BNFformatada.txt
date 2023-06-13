@@ -3,7 +3,7 @@
 # O proximo passo era pegar a tabela gerada e implementar o parser usando o metodo do livro do dragão (do Aho) p.226 
 
 PROGRAM               -> DECLARATION_STATEMENT PROGRAM 
-						  | FUCTION_STATEMENT PROGRAM 
+						  | FUNCTION_STATEMENT PROGRAM 
 						  | MAIN_STATEMENT.
 
 LITERAL               -> INT_LITERAL | FLOAT_LITERAL | BOOL_LITERAL | CHAR_LITERAL | STRING_LITERAL.
