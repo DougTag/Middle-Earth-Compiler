@@ -64,15 +64,26 @@ def p_expression(p):
     
 
 def p_expression_number(p):
-    'expression : number'
+    'expression : literal'
     p[0] = p[1]
 
-def p_number(p):
+def p_literal(p):
     '''
-    number : INT_LITERAL
-           | FLOAT_LITERAL
+    literal : INT_LITERAL
+            | FLOAT_LITERAL
+            | CHAR_LITERAL
+            | STRING_LITERAL
+            | bool_literal
     '''
     p[0] = p[1]
+
+def p_literal(p):
+    '''
+    bool_literal : BOOL_TRUE
+            | BOOL_FALSE
+    '''
+    p[0] = p[1]
+
 
 precedence = (
     ('left', 'ADD', 'SUB'),
