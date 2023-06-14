@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftADDSUBleftMULTDIVleftMODleftPOWrightUNARYABYSS ADD AND ASSIGN BACK BEGINS BITWISE_AND BITWISE_NOT BITWISE_OR BITWISE_XOR BOOL BOOL_FALSE BOOL_TRUE CHAR CHAR_LITERAL CLOSE_BRACE CLOSE_PARENTHESIS COMMA CONTINUES DIV DOUBLE ELSE EQUAL EXCLAMATION FLOAT FLOAT_LITERAL FUNCTION GO GREATER GREATER_EQUAL HERE HOWEVER ID IF INT INT_LITERAL JOURNEY LESS LESS_EQUAL LONG MOD MULT NOT OPEN_BRACE OPEN_PARENTHESIS OR PASS POW QUEST SEMICOLON SHALL SHORT STRING STRING_LITERAL SUB THE_1 THE_2 TO UNSIGNED VOID WHEN WHILE XOR YOUexpression : SUB number %prec UNARY\n    expression : expression ADD expression\n               | expression SUB expression\n               | expression DIV expression\n               | expression MULT expression\n               | expression MOD expression\n               | expression POW expression\n    expression : number\n    number : INT_LITERAL\n           | FLOAT_LITERAL\n    '
+_lr_signature = 'leftADDSUBleftMULTDIVleftMODleftPOWrightUNARYABYSS ADD AND ASSIGN BACK BEGINS BITWISE_AND BITWISE_NOT BITWISE_OR BITWISE_XOR BOOL BOOL_FALSE BOOL_TRUE CHAR CHAR_LITERAL CLOSE_BRACE CLOSE_PARENTHESIS COMMA CONTINUES DIV DOUBLE ELSE EQUAL FLOAT FLOAT_LITERAL FUNCTION GO GREATER GREATER_EQUAL HERE HOWEVER ID IF INT INT_LITERAL JOURNEY LESS LESS_EQUAL LONG MOD MULT NOT OPEN_BRACE OPEN_PARENTHESIS OR PASS POW QUEST SEMICOLON SHALL SHORT STRING STRING_LITERAL SUB THE_1 THE_2 TO UNSIGNED VOID WHEN WHILE XOR YOUmain_statement : THE_1 JOURNEY BEGINS HERE block\n    expression : expression ADD expression\n               | expression SUB expression\n               | expression DIV expression\n               | expression MULT expression\n               | expression MOD expression\n               | expression POW expression\n    expression : literalexpression : SUB literal %prec UNARY\n    literal : INT_LITERAL\n            | FLOAT_LITERAL\n            | CHAR_LITERAL\n            | STRING_LITERAL\n            | bool_literal\n    \n    bool_literal : BOOL_TRUE\n                 | BOOL_FALSE\n    \n    type : UNSIGNED\n         | SHORT\n         | INT\n         | LONG\n         | FLOAT\n         | DOUBLE\n         | CHAR\n         | STRING\n         | BOOL\n         | VOID\n    end : SEMICOLON\n    block : OPEN_BRACE statements CLOSE_BRACE\n    \n    statements : declaration_statement\n    declaration_statement : type ID end'
     
-_lr_action_items = {'SUB':([0,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,],[2,7,-8,-9,-10,2,2,2,2,2,2,-1,-2,-3,-4,-5,-6,-7,]),'INT_LITERAL':([0,2,6,7,8,9,10,11,],[4,4,4,4,4,4,4,4,]),'FLOAT_LITERAL':([0,2,6,7,8,9,10,11,],[5,5,5,5,5,5,5,5,]),'$end':([1,3,4,5,12,13,14,15,16,17,18,],[0,-8,-9,-10,-1,-2,-3,-4,-5,-6,-7,]),'ADD':([1,3,4,5,12,13,14,15,16,17,18,],[6,-8,-9,-10,-1,-2,-3,-4,-5,-6,-7,]),'DIV':([1,3,4,5,12,13,14,15,16,17,18,],[8,-8,-9,-10,-1,8,8,-4,-5,-6,-7,]),'MULT':([1,3,4,5,12,13,14,15,16,17,18,],[9,-8,-9,-10,-1,9,9,-4,-5,-6,-7,]),'MOD':([1,3,4,5,12,13,14,15,16,17,18,],[10,-8,-9,-10,-1,10,10,10,10,-6,-7,]),'POW':([1,3,4,5,12,13,14,15,16,17,18,],[11,-8,-9,-10,-1,11,11,11,11,11,-7,]),}
+_lr_action_items = {'THE_1':([0,],[2,]),'$end':([1,6,21,],[0,-1,-28,]),'JOURNEY':([2,],[3,]),'BEGINS':([3,],[4,]),'HERE':([4,],[5,]),'OPEN_BRACE':([5,],[7,]),'UNSIGNED':([7,],[11,]),'SHORT':([7,],[12,]),'INT':([7,],[13,]),'LONG':([7,],[14,]),'FLOAT':([7,],[15,]),'DOUBLE':([7,],[16,]),'CHAR':([7,],[17,]),'STRING':([7,],[18,]),'BOOL':([7,],[19,]),'VOID':([7,],[20,]),'CLOSE_BRACE':([8,9,23,24,],[21,-29,-30,-27,]),'ID':([10,11,12,13,14,15,16,17,18,19,20,],[22,-17,-18,-19,-20,-21,-22,-23,-24,-25,-26,]),'SEMICOLON':([22,],[24,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,6,7,8,9,10,11,],[1,13,14,15,16,17,18,]),'number':([0,2,6,7,8,9,10,11,],[3,12,3,3,3,3,3,3,]),}
+_lr_goto_items = {'main_statement':([0,],[1,]),'block':([5,],[6,]),'statements':([7,],[8,]),'declaration_statement':([7,],[9,]),'type':([7,],[10,]),'end':([22,],[23,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,15 +26,35 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> expression","S'",1,None,None,None),
-  ('expression -> SUB number','expression',2,'p_unary','mepp_parser.py',40),
-  ('expression -> expression ADD expression','expression',3,'p_expression','mepp_parser.py',45),
-  ('expression -> expression SUB expression','expression',3,'p_expression','mepp_parser.py',46),
-  ('expression -> expression DIV expression','expression',3,'p_expression','mepp_parser.py',47),
-  ('expression -> expression MULT expression','expression',3,'p_expression','mepp_parser.py',48),
-  ('expression -> expression MOD expression','expression',3,'p_expression','mepp_parser.py',49),
-  ('expression -> expression POW expression','expression',3,'p_expression','mepp_parser.py',50),
-  ('expression -> number','expression',1,'p_expression_number','mepp_parser.py',67),
-  ('number -> INT_LITERAL','number',1,'p_number','mepp_parser.py',72),
-  ('number -> FLOAT_LITERAL','number',1,'p_number','mepp_parser.py',73),
+  ("S' -> main_statement","S'",1,None,None,None),
+  ('main_statement -> THE_1 JOURNEY BEGINS HERE block','main_statement',5,'p_main_statement','mepp_parser.py',5),
+  ('expression -> expression ADD expression','expression',3,'p_expression','mepp_parser.py',9),
+  ('expression -> expression SUB expression','expression',3,'p_expression','mepp_parser.py',10),
+  ('expression -> expression DIV expression','expression',3,'p_expression','mepp_parser.py',11),
+  ('expression -> expression MULT expression','expression',3,'p_expression','mepp_parser.py',12),
+  ('expression -> expression MOD expression','expression',3,'p_expression','mepp_parser.py',13),
+  ('expression -> expression POW expression','expression',3,'p_expression','mepp_parser.py',14),
+  ('expression -> literal','expression',1,'p_expression_number','mepp_parser.py',31),
+  ('expression -> SUB literal','expression',2,'p_unary','mepp_parser.py',35),
+  ('literal -> INT_LITERAL','literal',1,'p_literal','mepp_parser.py',40),
+  ('literal -> FLOAT_LITERAL','literal',1,'p_literal','mepp_parser.py',41),
+  ('literal -> CHAR_LITERAL','literal',1,'p_literal','mepp_parser.py',42),
+  ('literal -> STRING_LITERAL','literal',1,'p_literal','mepp_parser.py',43),
+  ('literal -> bool_literal','literal',1,'p_literal','mepp_parser.py',44),
+  ('bool_literal -> BOOL_TRUE','bool_literal',1,'p_bool_literal','mepp_parser.py',50),
+  ('bool_literal -> BOOL_FALSE','bool_literal',1,'p_bool_literal','mepp_parser.py',51),
+  ('type -> UNSIGNED','type',1,'p_type','mepp_parser.py',57),
+  ('type -> SHORT','type',1,'p_type','mepp_parser.py',58),
+  ('type -> INT','type',1,'p_type','mepp_parser.py',59),
+  ('type -> LONG','type',1,'p_type','mepp_parser.py',60),
+  ('type -> FLOAT','type',1,'p_type','mepp_parser.py',61),
+  ('type -> DOUBLE','type',1,'p_type','mepp_parser.py',62),
+  ('type -> CHAR','type',1,'p_type','mepp_parser.py',63),
+  ('type -> STRING','type',1,'p_type','mepp_parser.py',64),
+  ('type -> BOOL','type',1,'p_type','mepp_parser.py',65),
+  ('type -> VOID','type',1,'p_type','mepp_parser.py',66),
+  ('end -> SEMICOLON','end',1,'p_end','mepp_parser.py',70),
+  ('block -> OPEN_BRACE statements CLOSE_BRACE','block',3,'p_block','mepp_parser.py',75),
+  ('statements -> declaration_statement','statements',1,'p_statements','mepp_parser.py',80),
+  ('declaration_statement -> type ID end','declaration_statement',3,'p_declaration_statement','mepp_parser.py',84),
 ]

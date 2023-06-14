@@ -6,54 +6,28 @@ Unused terminals:
     AND
     ASSIGN
     BACK
-    BEGINS
     BITWISE_AND
     BITWISE_NOT
     BITWISE_OR
     BITWISE_XOR
-    BOOL
-    BOOL_FALSE
-    BOOL_TRUE
-    CHAR
-    CHAR_LITERAL
-    CLOSE_BRACE
-    CLOSE_PARENTHESIS
     COMMA
     CONTINUES
-    DOUBLE
     ELSE
     EQUAL
-    EXCLAMATION
-    FLOAT
-    FUNCTION
     GO
     GREATER
     GREATER_EQUAL
-    HERE
     HOWEVER
-    ID
     IF
-    INT
-    JOURNEY
     LESS
     LESS_EQUAL
-    LONG
     NOT
-    OPEN_BRACE
-    OPEN_PARENTHESIS
     OR
     PASS
     QUEST
-    SEMICOLON
     SHALL
-    SHORT
-    STRING
-    STRING_LITERAL
-    THE_1
     THE_2
     TO
-    UNSIGNED
-    VOID
     WHEN
     WHILE
     XOR
@@ -61,80 +35,106 @@ Unused terminals:
 
 Grammar
 
-Rule 0     S' -> expression
-Rule 1     expression -> SUB number
-Rule 2     expression -> expression ADD expression
-Rule 3     expression -> expression SUB expression
-Rule 4     expression -> expression DIV expression
-Rule 5     expression -> expression MULT expression
-Rule 6     expression -> expression MOD expression
-Rule 7     expression -> expression POW expression
-Rule 8     expression -> number
-Rule 9     number -> INT_LITERAL
-Rule 10    number -> FLOAT_LITERAL
+Rule 0     S' -> program
+Rule 1     program -> global main_statement
+Rule 2     global -> declaration_statement
+Rule 3     global -> function_statement
+Rule 4     function_statement -> FUNCTION TYPE ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS OPEN_BRACE block CLOSE_BRACE
+Rule 5     main_statement -> THE_1 JOURNEY BEGINS HERE blocks
+Rule 6     declaration_statement -> type ID end
+Rule 7     declaration_statement -> declaration_statement declaration_statement
+Rule 8     block -> OPEN_BRACE statements CLOSE_BRACE
+Rule 9     block -> block block
+Rule 10    block -> empty
+Rule 11    expression -> expression ADD expression
+Rule 12    expression -> expression SUB expression
+Rule 13    expression -> expression DIV expression
+Rule 14    expression -> expression MULT expression
+Rule 15    expression -> expression MOD expression
+Rule 16    expression -> expression POW expression
+Rule 17    expression -> literal
+Rule 18    expression -> SUB literal
+Rule 19    literal -> INT_LITERAL
+Rule 20    literal -> FLOAT_LITERAL
+Rule 21    literal -> CHAR_LITERAL
+Rule 22    literal -> STRING_LITERAL
+Rule 23    literal -> bool_literal
+Rule 24    bool_literal -> BOOL_TRUE
+Rule 25    bool_literal -> BOOL_FALSE
+Rule 26    type -> UNSIGNED
+Rule 27    type -> SHORT
+Rule 28    type -> INT
+Rule 29    type -> LONG
+Rule 30    type -> FLOAT
+Rule 31    type -> DOUBLE
+Rule 32    type -> CHAR
+Rule 33    type -> STRING
+Rule 34    type -> BOOL
+Rule 35    type -> VOID
+Rule 36    end -> SEMICOLON
+Rule 37    empty -> <empty>
 
 Terminals, with rules where they appear
 
 ABYSS                : 
-ADD                  : 2
+ADD                  : 11
 AND                  : 
 ASSIGN               : 
 BACK                 : 
-BEGINS               : 
+BEGINS               : 5
 BITWISE_AND          : 
 BITWISE_NOT          : 
 BITWISE_OR           : 
 BITWISE_XOR          : 
-BOOL                 : 
-BOOL_FALSE           : 
-BOOL_TRUE            : 
-CHAR                 : 
-CHAR_LITERAL         : 
-CLOSE_BRACE          : 
-CLOSE_PARENTHESIS    : 
+BOOL                 : 34
+BOOL_FALSE           : 25
+BOOL_TRUE            : 24
+CHAR                 : 32
+CHAR_LITERAL         : 21
+CLOSE_BRACE          : 4 8
+CLOSE_PARENTHESIS    : 4
 COMMA                : 
 CONTINUES            : 
-DIV                  : 4
-DOUBLE               : 
+DIV                  : 13
+DOUBLE               : 31
 ELSE                 : 
 EQUAL                : 
-EXCLAMATION          : 
-FLOAT                : 
-FLOAT_LITERAL        : 10
-FUNCTION             : 
+FLOAT                : 30
+FLOAT_LITERAL        : 20
+FUNCTION             : 4
 GO                   : 
 GREATER              : 
 GREATER_EQUAL        : 
-HERE                 : 
+HERE                 : 5
 HOWEVER              : 
-ID                   : 
+ID                   : 4 6
 IF                   : 
-INT                  : 
-INT_LITERAL          : 9
-JOURNEY              : 
+INT                  : 28
+INT_LITERAL          : 19
+JOURNEY              : 5
 LESS                 : 
 LESS_EQUAL           : 
-LONG                 : 
-MOD                  : 6
-MULT                 : 5
+LONG                 : 29
+MOD                  : 15
+MULT                 : 14
 NOT                  : 
-OPEN_BRACE           : 
-OPEN_PARENTHESIS     : 
+OPEN_BRACE           : 4 8
+OPEN_PARENTHESIS     : 4
 OR                   : 
 PASS                 : 
-POW                  : 7
+POW                  : 16
 QUEST                : 
-SEMICOLON            : 
+SEMICOLON            : 36
 SHALL                : 
-SHORT                : 
-STRING               : 
-STRING_LITERAL       : 
-SUB                  : 1 3
-THE_1                : 
+SHORT                : 27
+STRING               : 33
+STRING_LITERAL       : 22
+SUB                  : 12 18
+THE_1                : 5
 THE_2                : 
 TO                   : 
-UNSIGNED             : 
-VOID                 : 
+UNSIGNED             : 26
+VOID                 : 35
 WHEN                 : 
 WHILE                : 
 XOR                  : 
@@ -143,391 +143,20 @@ error                :
 
 Nonterminals, with rules where they appear
 
-expression           : 2 2 3 3 4 4 5 5 6 6 7 7 0
-number               : 1 8
-
-Parsing method: LALR
-
-state 0
-
-    (0) S' -> . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 1
-    number                         shift and go to state 3
-
-state 1
-
-    (0) S' -> expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             shift and go to state 6
-    SUB             shift and go to state 7
-    DIV             shift and go to state 8
-    MULT            shift and go to state 9
-    MOD             shift and go to state 10
-    POW             shift and go to state 11
-
-
-state 2
-
-    (1) expression -> SUB . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    number                         shift and go to state 12
-
-state 3
-
-    (8) expression -> number .
-
-    ADD             reduce using rule 8 (expression -> number .)
-    SUB             reduce using rule 8 (expression -> number .)
-    DIV             reduce using rule 8 (expression -> number .)
-    MULT            reduce using rule 8 (expression -> number .)
-    MOD             reduce using rule 8 (expression -> number .)
-    POW             reduce using rule 8 (expression -> number .)
-    $end            reduce using rule 8 (expression -> number .)
-
-
-state 4
-
-    (9) number -> INT_LITERAL .
-
-    ADD             reduce using rule 9 (number -> INT_LITERAL .)
-    SUB             reduce using rule 9 (number -> INT_LITERAL .)
-    DIV             reduce using rule 9 (number -> INT_LITERAL .)
-    MULT            reduce using rule 9 (number -> INT_LITERAL .)
-    MOD             reduce using rule 9 (number -> INT_LITERAL .)
-    POW             reduce using rule 9 (number -> INT_LITERAL .)
-    $end            reduce using rule 9 (number -> INT_LITERAL .)
-
-
-state 5
-
-    (10) number -> FLOAT_LITERAL .
-
-    ADD             reduce using rule 10 (number -> FLOAT_LITERAL .)
-    SUB             reduce using rule 10 (number -> FLOAT_LITERAL .)
-    DIV             reduce using rule 10 (number -> FLOAT_LITERAL .)
-    MULT            reduce using rule 10 (number -> FLOAT_LITERAL .)
-    MOD             reduce using rule 10 (number -> FLOAT_LITERAL .)
-    POW             reduce using rule 10 (number -> FLOAT_LITERAL .)
-    $end            reduce using rule 10 (number -> FLOAT_LITERAL .)
-
-
-state 6
-
-    (2) expression -> expression ADD . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 13
-    number                         shift and go to state 3
-
-state 7
-
-    (3) expression -> expression SUB . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 14
-    number                         shift and go to state 3
-
-state 8
-
-    (4) expression -> expression DIV . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 15
-    number                         shift and go to state 3
-
-state 9
-
-    (5) expression -> expression MULT . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 16
-    number                         shift and go to state 3
-
-state 10
-
-    (6) expression -> expression MOD . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 17
-    number                         shift and go to state 3
-
-state 11
-
-    (7) expression -> expression POW . expression
-    (1) expression -> . SUB number
-    (2) expression -> . expression ADD expression
-    (3) expression -> . expression SUB expression
-    (4) expression -> . expression DIV expression
-    (5) expression -> . expression MULT expression
-    (6) expression -> . expression MOD expression
-    (7) expression -> . expression POW expression
-    (8) expression -> . number
-    (9) number -> . INT_LITERAL
-    (10) number -> . FLOAT_LITERAL
-
-    SUB             shift and go to state 2
-    INT_LITERAL     shift and go to state 4
-    FLOAT_LITERAL   shift and go to state 5
-
-    expression                     shift and go to state 18
-    number                         shift and go to state 3
-
-state 12
-
-    (1) expression -> SUB number .
-
-    ADD             reduce using rule 1 (expression -> SUB number .)
-    SUB             reduce using rule 1 (expression -> SUB number .)
-    DIV             reduce using rule 1 (expression -> SUB number .)
-    MULT            reduce using rule 1 (expression -> SUB number .)
-    MOD             reduce using rule 1 (expression -> SUB number .)
-    POW             reduce using rule 1 (expression -> SUB number .)
-    $end            reduce using rule 1 (expression -> SUB number .)
-
-
-state 13
-
-    (2) expression -> expression ADD expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 2 (expression -> expression ADD expression .)
-    SUB             reduce using rule 2 (expression -> expression ADD expression .)
-    $end            reduce using rule 2 (expression -> expression ADD expression .)
-    DIV             shift and go to state 8
-    MULT            shift and go to state 9
-    MOD             shift and go to state 10
-    POW             shift and go to state 11
-
-  ! DIV             [ reduce using rule 2 (expression -> expression ADD expression .) ]
-  ! MULT            [ reduce using rule 2 (expression -> expression ADD expression .) ]
-  ! MOD             [ reduce using rule 2 (expression -> expression ADD expression .) ]
-  ! POW             [ reduce using rule 2 (expression -> expression ADD expression .) ]
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-
-
-state 14
-
-    (3) expression -> expression SUB expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 3 (expression -> expression SUB expression .)
-    SUB             reduce using rule 3 (expression -> expression SUB expression .)
-    $end            reduce using rule 3 (expression -> expression SUB expression .)
-    DIV             shift and go to state 8
-    MULT            shift and go to state 9
-    MOD             shift and go to state 10
-    POW             shift and go to state 11
-
-  ! DIV             [ reduce using rule 3 (expression -> expression SUB expression .) ]
-  ! MULT            [ reduce using rule 3 (expression -> expression SUB expression .) ]
-  ! MOD             [ reduce using rule 3 (expression -> expression SUB expression .) ]
-  ! POW             [ reduce using rule 3 (expression -> expression SUB expression .) ]
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-
-
-state 15
-
-    (4) expression -> expression DIV expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 4 (expression -> expression DIV expression .)
-    SUB             reduce using rule 4 (expression -> expression DIV expression .)
-    DIV             reduce using rule 4 (expression -> expression DIV expression .)
-    MULT            reduce using rule 4 (expression -> expression DIV expression .)
-    $end            reduce using rule 4 (expression -> expression DIV expression .)
-    MOD             shift and go to state 10
-    POW             shift and go to state 11
-
-  ! MOD             [ reduce using rule 4 (expression -> expression DIV expression .) ]
-  ! POW             [ reduce using rule 4 (expression -> expression DIV expression .) ]
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-  ! MULT            [ shift and go to state 9 ]
-
-
-state 16
-
-    (5) expression -> expression MULT expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 5 (expression -> expression MULT expression .)
-    SUB             reduce using rule 5 (expression -> expression MULT expression .)
-    DIV             reduce using rule 5 (expression -> expression MULT expression .)
-    MULT            reduce using rule 5 (expression -> expression MULT expression .)
-    $end            reduce using rule 5 (expression -> expression MULT expression .)
-    MOD             shift and go to state 10
-    POW             shift and go to state 11
-
-  ! MOD             [ reduce using rule 5 (expression -> expression MULT expression .) ]
-  ! POW             [ reduce using rule 5 (expression -> expression MULT expression .) ]
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-  ! MULT            [ shift and go to state 9 ]
-
-
-state 17
-
-    (6) expression -> expression MOD expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 6 (expression -> expression MOD expression .)
-    SUB             reduce using rule 6 (expression -> expression MOD expression .)
-    DIV             reduce using rule 6 (expression -> expression MOD expression .)
-    MULT            reduce using rule 6 (expression -> expression MOD expression .)
-    MOD             reduce using rule 6 (expression -> expression MOD expression .)
-    $end            reduce using rule 6 (expression -> expression MOD expression .)
-    POW             shift and go to state 11
-
-  ! POW             [ reduce using rule 6 (expression -> expression MOD expression .) ]
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-  ! MULT            [ shift and go to state 9 ]
-  ! MOD             [ shift and go to state 10 ]
-
-
-state 18
-
-    (7) expression -> expression POW expression .
-    (2) expression -> expression . ADD expression
-    (3) expression -> expression . SUB expression
-    (4) expression -> expression . DIV expression
-    (5) expression -> expression . MULT expression
-    (6) expression -> expression . MOD expression
-    (7) expression -> expression . POW expression
-
-    ADD             reduce using rule 7 (expression -> expression POW expression .)
-    SUB             reduce using rule 7 (expression -> expression POW expression .)
-    DIV             reduce using rule 7 (expression -> expression POW expression .)
-    MULT            reduce using rule 7 (expression -> expression POW expression .)
-    MOD             reduce using rule 7 (expression -> expression POW expression .)
-    POW             reduce using rule 7 (expression -> expression POW expression .)
-    $end            reduce using rule 7 (expression -> expression POW expression .)
-
-  ! ADD             [ shift and go to state 6 ]
-  ! SUB             [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-  ! MULT            [ shift and go to state 9 ]
-  ! MOD             [ shift and go to state 10 ]
-  ! POW             [ shift and go to state 11 ]
+TYPE                 : 4
+args                 : 4
+block                : 4 9 9
+blocks               : 5
+bool_literal         : 23
+declaration_statement : 2 7 7
+empty                : 10
+end                  : 6
+expression           : 11 11 12 12 13 13 14 14 15 15 16 16
+function_statement   : 3
+global               : 1
+literal              : 17 18
+main_statement       : 1
+program              : 0
+statements           : 8
+type                 : 6
 

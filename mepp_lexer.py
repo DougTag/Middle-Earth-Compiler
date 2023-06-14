@@ -16,7 +16,7 @@ reserved = {
    'back': 'BACK',
    'to': 'TO',
    'the': 'THE_2',
-   'abyss': 'ABYSS',
+   'abyss!': 'ABYSS',
    'Given' : 'IF',
    'Otherwise': 'ELSE',
    'However': 'HOWEVER',
@@ -44,7 +44,6 @@ tokens = [
    'CLOSE_BRACE',
    'SEMICOLON',
    'COMMA',
-   'EXCLAMATION',
    'OPEN_PARENTHESIS',
    'CLOSE_PARENTHESIS',
    'ADD',
@@ -74,7 +73,6 @@ t_OPEN_BRACE = r'{'
 t_CLOSE_BRACE = r'}'
 t_SEMICOLON = r';'
 t_COMMA = r','
-t_EXCLAMATION = r'!'
 t_OPEN_PARENTHESIS = r'\('
 t_CLOSE_PARENTHESIS = r'\)'
 t_ADD = r'\+'
