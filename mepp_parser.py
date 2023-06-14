@@ -13,11 +13,11 @@ def p_global(p):
     '''
     
 def p_function_statement(p):
-    'function_statement : FUNCTION TYPE ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS block'
+    'function_statement : FUNCTION TYPE ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS block'
 
-def p_args(p):
+def p_params(p):
     '''
-    args : declaration_statement
+    params : declaration_statement
          | separator
          | empty
     '''
@@ -49,6 +49,7 @@ def p_statements(p):
                | break_statement end
                | return_statement end
                | if_else_statement
+               | assign
     '''
 
 def p_while_statement(p):
@@ -88,7 +89,31 @@ def p_else_statement(p):
     else_statement : ELSE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
                    | empty
     '''
-        
+
+def p_assign_statement(p):
+    '''
+    assign_statement : ID ASSIGN literal
+                     | ID ASSIGN ID
+                     | ID ASSIGN OPEN_PARENTHESIS args CLOSE_PARENTHESIS
+    '''
+    
+def p_function(p):
+    '''
+    args : ID
+         | literal
+         | separator_args
+         | empty 
+    '''
+
+def p_separator_args(p):
+    '''
+    separator_args : separator_args COMMA ID
+                   | separator_args COMMA literal
+                   | ID
+                   | literal
+    '''
+
+
 def p_expression(p):
     '''
     expression : expression ADD expression
