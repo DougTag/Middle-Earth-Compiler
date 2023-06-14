@@ -2,25 +2,10 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ADD
-    AND
-    ASSIGN
     BITWISE_AND
     BITWISE_NOT
     BITWISE_OR
     BITWISE_XOR
-    DIV
-    EQUAL
-    GREATER
-    GREATER_EQUAL
-    LESS
-    LESS_EQUAL
-    MOD
-    MULT
-    OR
-    POW
-    SUB
-    XOR
 
 Grammar
 
@@ -57,109 +42,146 @@ Rule 29    statements -> continue_statement end
 Rule 30    statements -> break_statement end
 Rule 31    statements -> if_else_statement
 Rule 32    statements -> return_statement end
-Rule 33    while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-Rule 34    continue_statement -> THE_1 QUEST CONTINUES
-Rule 35    break_statement -> YOU SHALL NOT PASS
-Rule 36    if_else_statement -> if_statement elif_statement else_statement
-Rule 37    if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-Rule 38    else_statement -> ELSE block
-Rule 39    else_statement -> empty
-Rule 40    elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-Rule 41    elif_statement -> empty
-Rule 42    return_statement -> GO BACK TO THE_2 ABYSS
-Rule 43    return_statement -> GO BACK TO THE_2 ABYSS ID
-Rule 44    return_statement -> GO BACK TO THE_2 ABYSS literal
-Rule 45    comparasion -> empty
-Rule 46    literal -> INT_LITERAL
-Rule 47    literal -> FLOAT_LITERAL
-Rule 48    literal -> CHAR_LITERAL
-Rule 49    literal -> STRING_LITERAL
-Rule 50    literal -> BOOL_FALSE
-Rule 51    literal -> BOOL_TRUE
+Rule 33    statements -> assign_statement end
+Rule 34    while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+Rule 35    continue_statement -> THE_1 QUEST CONTINUES
+Rule 36    break_statement -> YOU SHALL NOT PASS
+Rule 37    if_else_statement -> if_statement elif_statement else_statement
+Rule 38    if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+Rule 39    else_statement -> ELSE block
+Rule 40    else_statement -> empty
+Rule 41    elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+Rule 42    elif_statement -> empty
+Rule 43    return_statement -> GO BACK TO THE_2 ABYSS
+Rule 44    return_statement -> GO BACK TO THE_2 ABYSS ID
+Rule 45    return_statement -> GO BACK TO THE_2 ABYSS literal
+Rule 46    comparasion_list -> comparasion
+Rule 47    comparasion_list -> comparasion_list logic_operator comparasion
+Rule 48    comparasion -> values
+Rule 49    comparasion -> values value_operators values
+Rule 50    value_operators -> EQUAL
+Rule 51    value_operators -> LESS
+Rule 52    value_operators -> LESS_EQUAL
+Rule 53    value_operators -> GREATER
+Rule 54    value_operators -> GREATER_EQUAL
+Rule 55    logic_operator -> AND
+Rule 56    logic_operator -> OR
+Rule 57    logic_operator -> XOR
+Rule 58    literal -> INT_LITERAL
+Rule 59    literal -> FLOAT_LITERAL
+Rule 60    literal -> CHAR_LITERAL
+Rule 61    literal -> STRING_LITERAL
+Rule 62    literal -> BOOL_FALSE
+Rule 63    literal -> BOOL_TRUE
+Rule 64    assign_statement -> ID ASSIGN values
+Rule 65    assign_statement -> ID ASSIGN call_function
+Rule 66    call_function -> ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS
+Rule 67    args -> args_list
+Rule 68    args -> empty
+Rule 69    args_list -> values
+Rule 70    args_list -> args_list COMMA values
+Rule 71    values -> literal
+Rule 72    values -> ID
+Rule 73    values -> expression
+Rule 74    expression -> expression ADD expression
+Rule 75    expression -> expression SUB expression
+Rule 76    expression -> expression DIV expression
+Rule 77    expression -> expression MULT expression
+Rule 78    expression -> expression MOD expression
+Rule 79    expression -> expression POW expression
+Rule 80    expression -> literal
+Rule 81    expression -> ID
 
 Terminals, with rules where they appear
 
-ABYSS                : 42 43 44
-ADD                  : 
-AND                  : 
-ASSIGN               : 
-BACK                 : 42 43 44
+ABYSS                : 43 44 45
+ADD                  : 74
+AND                  : 55
+ASSIGN               : 64 65
+BACK                 : 43 44 45
 BEGINS               : 10
 BITWISE_AND          : 
 BITWISE_NOT          : 
 BITWISE_OR           : 
 BITWISE_XOR          : 
 BOOL                 : 20
-BOOL_FALSE           : 50
-BOOL_TRUE            : 51
+BOOL_FALSE           : 62
+BOOL_TRUE            : 63
 CHAR                 : 18
-CHAR_LITERAL         : 48
+CHAR_LITERAL         : 60
 CLOSE_BRACE          : 24
-CLOSE_PARENTHESIS    : 5 33 37 40
-COMMA                : 9
-CONTINUES            : 34
-DIV                  : 
+CLOSE_PARENTHESIS    : 5 34 38 41 66
+COMMA                : 9 70
+CONTINUES            : 35
+DIV                  : 76
 DOUBLE               : 17
-ELSE                 : 38
-EQUAL                : 
+ELSE                 : 39
+EQUAL                : 50
 FLOAT                : 16
-FLOAT_LITERAL        : 47
+FLOAT_LITERAL        : 59
 FUNCTION             : 5
-GO                   : 42 43 44
-GREATER              : 
-GREATER_EQUAL        : 
+GO                   : 43 44 45
+GREATER              : 53
+GREATER_EQUAL        : 54
 HERE                 : 10
-HOWEVER              : 40
-ID                   : 5 11 43
-IF                   : 37
+HOWEVER              : 41
+ID                   : 5 11 44 64 65 66 72 81
+IF                   : 38
 INT                  : 14
-INT_LITERAL          : 46
+INT_LITERAL          : 58
 JOURNEY              : 10
-LESS                 : 
-LESS_EQUAL           : 
+LESS                 : 51
+LESS_EQUAL           : 52
 LONG                 : 15
-MOD                  : 
-MULT                 : 
-NOT                  : 35
+MOD                  : 78
+MULT                 : 77
+NOT                  : 36
 OPEN_BRACE           : 24
-OPEN_PARENTHESIS     : 5 33 37 40
-OR                   : 
-PASS                 : 35
-POW                  : 
-QUEST                : 34
+OPEN_PARENTHESIS     : 5 34 38 41 66
+OR                   : 56
+PASS                 : 36
+POW                  : 79
+QUEST                : 35
 SEMICOLON            : 22
-SHALL                : 35
+SHALL                : 36
 SHORT                : 13
 STRING               : 19
-STRING_LITERAL       : 49
-SUB                  : 
-THE_1                : 10 34
-THE_2                : 42 43 44
-TO                   : 42 43 44
+STRING_LITERAL       : 61
+SUB                  : 75
+THE_1                : 10 35
+THE_2                : 43 44 45
+TO                   : 43 44 45
 UNSIGNED             : 12
 VOID                 : 21
-WHEN                 : 40
-WHILE                : 33
-XOR                  : 
-YOU                  : 35
+WHEN                 : 41
+WHILE                : 34
+XOR                  : 57
+YOU                  : 36
 error                : 
 
 Nonterminals, with rules where they appear
 
-block                : 5 10 33 37 38 40
+args                 : 66
+args_list            : 67 70
+assign_statement     : 33
+block                : 5 10 34 38 39 41
 break_statement      : 30
-comparasion          : 33 37 40
+call_function        : 65
+comparasion          : 46 47
+comparasion_list     : 34 38 41 47
 continue_statement   : 29
 declaration_statement : 2 8 9 27
-elif_statement       : 36 40
-else_statement       : 36
-empty                : 4 7 26 39 41 45
-end                  : 2 27 29 30 32
+elif_statement       : 37 41
+else_statement       : 37
+empty                : 4 7 26 40 42 68
+end                  : 2 27 29 30 32 33
+expression           : 73 74 74 75 75 76 76 77 77 78 78 79 79
 function_statement   : 3
 global               : 1 2 3
 if_else_statement    : 31
-if_statement         : 36
-literal              : 44
+if_statement         : 37
+literal              : 45 71 80
+logic_operator       : 47
 main_statement       : 1
 params               : 5
 params_list          : 6 9
@@ -168,6 +190,8 @@ return_statement     : 32
 statements           : 25
 statements_list      : 24 25
 type                 : 5 11
+value_operators      : 49
+values               : 48 49 49 64 69 70
 while_statement      : 28
 
 Parsing method: LALR
@@ -460,6 +484,7 @@ state 21
     WHILE           reduce using rule 22 (end -> SEMICOLON .)
     YOU             reduce using rule 22 (end -> SEMICOLON .)
     GO              reduce using rule 22 (end -> SEMICOLON .)
+    ID              reduce using rule 22 (end -> SEMICOLON .)
     IF              reduce using rule 22 (end -> SEMICOLON .)
 
 
@@ -611,6 +636,7 @@ state 36
     THE_1           reduce using rule 23 (empty -> .)
     YOU             reduce using rule 23 (empty -> .)
     GO              reduce using rule 23 (empty -> .)
+    ID              reduce using rule 23 (empty -> .)
     UNSIGNED        reduce using rule 23 (empty -> .)
     SHORT           reduce using rule 23 (empty -> .)
     INT             reduce using rule 23 (empty -> .)
@@ -674,14 +700,17 @@ state 39
     (30) statements -> . break_statement end
     (31) statements -> . if_else_statement
     (32) statements -> . return_statement end
+    (33) statements -> . assign_statement end
     (11) declaration_statement -> . type ID
-    (33) while_statement -> . WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-    (34) continue_statement -> . THE_1 QUEST CONTINUES
-    (35) break_statement -> . YOU SHALL NOT PASS
-    (36) if_else_statement -> . if_statement elif_statement else_statement
-    (42) return_statement -> . GO BACK TO THE_2 ABYSS
-    (43) return_statement -> . GO BACK TO THE_2 ABYSS ID
-    (44) return_statement -> . GO BACK TO THE_2 ABYSS literal
+    (34) while_statement -> . WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+    (35) continue_statement -> . THE_1 QUEST CONTINUES
+    (36) break_statement -> . YOU SHALL NOT PASS
+    (37) if_else_statement -> . if_statement elif_statement else_statement
+    (43) return_statement -> . GO BACK TO THE_2 ABYSS
+    (44) return_statement -> . GO BACK TO THE_2 ABYSS ID
+    (45) return_statement -> . GO BACK TO THE_2 ABYSS literal
+    (64) assign_statement -> . ID ASSIGN values
+    (65) assign_statement -> . ID ASSIGN call_function
     (12) type -> . UNSIGNED
     (13) type -> . SHORT
     (14) type -> . INT
@@ -692,13 +721,14 @@ state 39
     (19) type -> . STRING
     (20) type -> . BOOL
     (21) type -> . VOID
-    (37) if_statement -> . IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
+    (38) if_statement -> . IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
 
     CLOSE_BRACE     shift and go to state 43
-    WHILE           shift and go to state 51
-    THE_1           shift and go to state 52
-    YOU             shift and go to state 53
-    GO              shift and go to state 55
+    WHILE           shift and go to state 53
+    THE_1           shift and go to state 54
+    YOU             shift and go to state 55
+    GO              shift and go to state 57
+    ID              shift and go to state 52
     UNSIGNED        shift and go to state 8
     SHORT           shift and go to state 9
     INT             shift and go to state 10
@@ -709,7 +739,7 @@ state 39
     STRING          shift and go to state 15
     BOOL            shift and go to state 16
     VOID            shift and go to state 17
-    IF              shift and go to state 56
+    IF              shift and go to state 58
 
     statements                     shift and go to state 44
     declaration_statement          shift and go to state 45
@@ -718,8 +748,9 @@ state 39
     break_statement                shift and go to state 48
     if_else_statement              shift and go to state 49
     return_statement               shift and go to state 50
+    assign_statement               shift and go to state 51
     type                           shift and go to state 6
-    if_statement                   shift and go to state 54
+    if_statement                   shift and go to state 56
 
 state 40
 
@@ -730,6 +761,7 @@ state 40
     THE_1           reduce using rule 26 (statements_list -> empty .)
     YOU             reduce using rule 26 (statements_list -> empty .)
     GO              reduce using rule 26 (statements_list -> empty .)
+    ID              reduce using rule 26 (statements_list -> empty .)
     UNSIGNED        reduce using rule 26 (statements_list -> empty .)
     SHORT           reduce using rule 26 (statements_list -> empty .)
     INT             reduce using rule 26 (statements_list -> empty .)
@@ -790,6 +822,7 @@ state 43
     WHILE           reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
     YOU             reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
     GO              reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
+    ID              reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
     IF              reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
     HOWEVER         reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
     ELSE            reduce using rule 24 (block -> OPEN_BRACE statements_list CLOSE_BRACE .)
@@ -804,6 +837,7 @@ state 44
     THE_1           reduce using rule 25 (statements_list -> statements_list statements .)
     YOU             reduce using rule 25 (statements_list -> statements_list statements .)
     GO              reduce using rule 25 (statements_list -> statements_list statements .)
+    ID              reduce using rule 25 (statements_list -> statements_list statements .)
     UNSIGNED        reduce using rule 25 (statements_list -> statements_list statements .)
     SHORT           reduce using rule 25 (statements_list -> statements_list statements .)
     INT             reduce using rule 25 (statements_list -> statements_list statements .)
@@ -824,7 +858,7 @@ state 45
 
     SEMICOLON       shift and go to state 21
 
-    end                            shift and go to state 57
+    end                            shift and go to state 59
 
 state 46
 
@@ -835,6 +869,7 @@ state 46
     THE_1           reduce using rule 28 (statements -> while_statement .)
     YOU             reduce using rule 28 (statements -> while_statement .)
     GO              reduce using rule 28 (statements -> while_statement .)
+    ID              reduce using rule 28 (statements -> while_statement .)
     UNSIGNED        reduce using rule 28 (statements -> while_statement .)
     SHORT           reduce using rule 28 (statements -> while_statement .)
     INT             reduce using rule 28 (statements -> while_statement .)
@@ -855,7 +890,7 @@ state 47
 
     SEMICOLON       shift and go to state 21
 
-    end                            shift and go to state 58
+    end                            shift and go to state 60
 
 state 48
 
@@ -864,7 +899,7 @@ state 48
 
     SEMICOLON       shift and go to state 21
 
-    end                            shift and go to state 59
+    end                            shift and go to state 61
 
 state 49
 
@@ -875,6 +910,7 @@ state 49
     THE_1           reduce using rule 31 (statements -> if_else_statement .)
     YOU             reduce using rule 31 (statements -> if_else_statement .)
     GO              reduce using rule 31 (statements -> if_else_statement .)
+    ID              reduce using rule 31 (statements -> if_else_statement .)
     UNSIGNED        reduce using rule 31 (statements -> if_else_statement .)
     SHORT           reduce using rule 31 (statements -> if_else_statement .)
     INT             reduce using rule 31 (statements -> if_else_statement .)
@@ -895,34 +931,51 @@ state 50
 
     SEMICOLON       shift and go to state 21
 
-    end                            shift and go to state 60
+    end                            shift and go to state 62
 
 state 51
 
-    (33) while_statement -> WHILE . OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
+    (33) statements -> assign_statement . end
+    (22) end -> . SEMICOLON
 
-    OPEN_PARENTHESIS shift and go to state 61
+    SEMICOLON       shift and go to state 21
 
+    end                            shift and go to state 63
 
 state 52
 
-    (34) continue_statement -> THE_1 . QUEST CONTINUES
+    (64) assign_statement -> ID . ASSIGN values
+    (65) assign_statement -> ID . ASSIGN call_function
 
-    QUEST           shift and go to state 62
+    ASSIGN          shift and go to state 64
 
 
 state 53
 
-    (35) break_statement -> YOU . SHALL NOT PASS
+    (34) while_statement -> WHILE . OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
 
-    SHALL           shift and go to state 63
+    OPEN_PARENTHESIS shift and go to state 65
 
 
 state 54
 
-    (36) if_else_statement -> if_statement . elif_statement else_statement
-    (40) elif_statement -> . elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-    (41) elif_statement -> . empty
+    (35) continue_statement -> THE_1 . QUEST CONTINUES
+
+    QUEST           shift and go to state 66
+
+
+state 55
+
+    (36) break_statement -> YOU . SHALL NOT PASS
+
+    SHALL           shift and go to state 67
+
+
+state 56
+
+    (37) if_else_statement -> if_statement . elif_statement else_statement
+    (41) elif_statement -> . elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+    (42) elif_statement -> . empty
     (23) empty -> .
 
     HOWEVER         reduce using rule 23 (empty -> .)
@@ -932,6 +985,7 @@ state 54
     THE_1           reduce using rule 23 (empty -> .)
     YOU             reduce using rule 23 (empty -> .)
     GO              reduce using rule 23 (empty -> .)
+    ID              reduce using rule 23 (empty -> .)
     UNSIGNED        reduce using rule 23 (empty -> .)
     SHORT           reduce using rule 23 (empty -> .)
     INT             reduce using rule 23 (empty -> .)
@@ -944,26 +998,26 @@ state 54
     VOID            reduce using rule 23 (empty -> .)
     IF              reduce using rule 23 (empty -> .)
 
-    elif_statement                 shift and go to state 64
-    empty                          shift and go to state 65
-
-state 55
-
-    (42) return_statement -> GO . BACK TO THE_2 ABYSS
-    (43) return_statement -> GO . BACK TO THE_2 ABYSS ID
-    (44) return_statement -> GO . BACK TO THE_2 ABYSS literal
-
-    BACK            shift and go to state 66
-
-
-state 56
-
-    (37) if_statement -> IF . OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-
-    OPEN_PARENTHESIS shift and go to state 67
-
+    elif_statement                 shift and go to state 68
+    empty                          shift and go to state 69
 
 state 57
+
+    (43) return_statement -> GO . BACK TO THE_2 ABYSS
+    (44) return_statement -> GO . BACK TO THE_2 ABYSS ID
+    (45) return_statement -> GO . BACK TO THE_2 ABYSS literal
+
+    BACK            shift and go to state 70
+
+
+state 58
+
+    (38) if_statement -> IF . OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+
+    OPEN_PARENTHESIS shift and go to state 71
+
+
+state 59
 
     (27) statements -> declaration_statement end .
 
@@ -972,6 +1026,7 @@ state 57
     THE_1           reduce using rule 27 (statements -> declaration_statement end .)
     YOU             reduce using rule 27 (statements -> declaration_statement end .)
     GO              reduce using rule 27 (statements -> declaration_statement end .)
+    ID              reduce using rule 27 (statements -> declaration_statement end .)
     UNSIGNED        reduce using rule 27 (statements -> declaration_statement end .)
     SHORT           reduce using rule 27 (statements -> declaration_statement end .)
     INT             reduce using rule 27 (statements -> declaration_statement end .)
@@ -985,7 +1040,7 @@ state 57
     IF              reduce using rule 27 (statements -> declaration_statement end .)
 
 
-state 58
+state 60
 
     (29) statements -> continue_statement end .
 
@@ -994,6 +1049,7 @@ state 58
     THE_1           reduce using rule 29 (statements -> continue_statement end .)
     YOU             reduce using rule 29 (statements -> continue_statement end .)
     GO              reduce using rule 29 (statements -> continue_statement end .)
+    ID              reduce using rule 29 (statements -> continue_statement end .)
     UNSIGNED        reduce using rule 29 (statements -> continue_statement end .)
     SHORT           reduce using rule 29 (statements -> continue_statement end .)
     INT             reduce using rule 29 (statements -> continue_statement end .)
@@ -1007,7 +1063,7 @@ state 58
     IF              reduce using rule 29 (statements -> continue_statement end .)
 
 
-state 59
+state 61
 
     (30) statements -> break_statement end .
 
@@ -1016,6 +1072,7 @@ state 59
     THE_1           reduce using rule 30 (statements -> break_statement end .)
     YOU             reduce using rule 30 (statements -> break_statement end .)
     GO              reduce using rule 30 (statements -> break_statement end .)
+    ID              reduce using rule 30 (statements -> break_statement end .)
     UNSIGNED        reduce using rule 30 (statements -> break_statement end .)
     SHORT           reduce using rule 30 (statements -> break_statement end .)
     INT             reduce using rule 30 (statements -> break_statement end .)
@@ -1029,7 +1086,7 @@ state 59
     IF              reduce using rule 30 (statements -> break_statement end .)
 
 
-state 60
+state 62
 
     (32) statements -> return_statement end .
 
@@ -1038,6 +1095,7 @@ state 60
     THE_1           reduce using rule 32 (statements -> return_statement end .)
     YOU             reduce using rule 32 (statements -> return_statement end .)
     GO              reduce using rule 32 (statements -> return_statement end .)
+    ID              reduce using rule 32 (statements -> return_statement end .)
     UNSIGNED        reduce using rule 32 (statements -> return_statement end .)
     SHORT           reduce using rule 32 (statements -> return_statement end .)
     INT             reduce using rule 32 (statements -> return_statement end .)
@@ -1051,46 +1109,134 @@ state 60
     IF              reduce using rule 32 (statements -> return_statement end .)
 
 
-state 61
-
-    (33) while_statement -> WHILE OPEN_PARENTHESIS . comparasion CLOSE_PARENTHESIS block
-    (45) comparasion -> . empty
-    (23) empty -> .
-
-    CLOSE_PARENTHESIS reduce using rule 23 (empty -> .)
-
-    comparasion                    shift and go to state 68
-    empty                          shift and go to state 69
-
-state 62
-
-    (34) continue_statement -> THE_1 QUEST . CONTINUES
-
-    CONTINUES       shift and go to state 70
-
-
 state 63
 
-    (35) break_statement -> YOU SHALL . NOT PASS
+    (33) statements -> assign_statement end .
 
-    NOT             shift and go to state 71
+    CLOSE_BRACE     reduce using rule 33 (statements -> assign_statement end .)
+    WHILE           reduce using rule 33 (statements -> assign_statement end .)
+    THE_1           reduce using rule 33 (statements -> assign_statement end .)
+    YOU             reduce using rule 33 (statements -> assign_statement end .)
+    GO              reduce using rule 33 (statements -> assign_statement end .)
+    ID              reduce using rule 33 (statements -> assign_statement end .)
+    UNSIGNED        reduce using rule 33 (statements -> assign_statement end .)
+    SHORT           reduce using rule 33 (statements -> assign_statement end .)
+    INT             reduce using rule 33 (statements -> assign_statement end .)
+    LONG            reduce using rule 33 (statements -> assign_statement end .)
+    FLOAT           reduce using rule 33 (statements -> assign_statement end .)
+    DOUBLE          reduce using rule 33 (statements -> assign_statement end .)
+    CHAR            reduce using rule 33 (statements -> assign_statement end .)
+    STRING          reduce using rule 33 (statements -> assign_statement end .)
+    BOOL            reduce using rule 33 (statements -> assign_statement end .)
+    VOID            reduce using rule 33 (statements -> assign_statement end .)
+    IF              reduce using rule 33 (statements -> assign_statement end .)
 
 
 state 64
 
-    (36) if_else_statement -> if_statement elif_statement . else_statement
-    (40) elif_statement -> elif_statement . HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
-    (38) else_statement -> . ELSE block
-    (39) else_statement -> . empty
+    (64) assign_statement -> ID ASSIGN . values
+    (65) assign_statement -> ID ASSIGN . call_function
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (66) call_function -> . ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 72
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    values                         shift and go to state 73
+    call_function                  shift and go to state 74
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 65
+
+    (34) while_statement -> WHILE OPEN_PARENTHESIS . comparasion_list CLOSE_PARENTHESIS block
+    (46) comparasion_list -> . comparasion
+    (47) comparasion_list -> . comparasion_list logic_operator comparasion
+    (48) comparasion -> . values
+    (49) comparasion -> . values value_operators values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    comparasion_list               shift and go to state 83
+    comparasion                    shift and go to state 84
+    values                         shift and go to state 85
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 66
+
+    (35) continue_statement -> THE_1 QUEST . CONTINUES
+
+    CONTINUES       shift and go to state 87
+
+
+state 67
+
+    (36) break_statement -> YOU SHALL . NOT PASS
+
+    NOT             shift and go to state 88
+
+
+state 68
+
+    (37) if_else_statement -> if_statement elif_statement . else_statement
+    (41) elif_statement -> elif_statement . HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+    (39) else_statement -> . ELSE block
+    (40) else_statement -> . empty
     (23) empty -> .
 
-    HOWEVER         shift and go to state 73
-    ELSE            shift and go to state 74
+    HOWEVER         shift and go to state 90
+    ELSE            shift and go to state 91
     CLOSE_BRACE     reduce using rule 23 (empty -> .)
     WHILE           reduce using rule 23 (empty -> .)
     THE_1           reduce using rule 23 (empty -> .)
     YOU             reduce using rule 23 (empty -> .)
     GO              reduce using rule 23 (empty -> .)
+    ID              reduce using rule 23 (empty -> .)
     UNSIGNED        reduce using rule 23 (empty -> .)
     SHORT           reduce using rule 23 (empty -> .)
     INT             reduce using rule 23 (empty -> .)
@@ -1103,392 +1249,1584 @@ state 64
     VOID            reduce using rule 23 (empty -> .)
     IF              reduce using rule 23 (empty -> .)
 
-    else_statement                 shift and go to state 72
-    empty                          shift and go to state 75
-
-state 65
-
-    (41) elif_statement -> empty .
-
-    HOWEVER         reduce using rule 41 (elif_statement -> empty .)
-    ELSE            reduce using rule 41 (elif_statement -> empty .)
-    CLOSE_BRACE     reduce using rule 41 (elif_statement -> empty .)
-    WHILE           reduce using rule 41 (elif_statement -> empty .)
-    THE_1           reduce using rule 41 (elif_statement -> empty .)
-    YOU             reduce using rule 41 (elif_statement -> empty .)
-    GO              reduce using rule 41 (elif_statement -> empty .)
-    UNSIGNED        reduce using rule 41 (elif_statement -> empty .)
-    SHORT           reduce using rule 41 (elif_statement -> empty .)
-    INT             reduce using rule 41 (elif_statement -> empty .)
-    LONG            reduce using rule 41 (elif_statement -> empty .)
-    FLOAT           reduce using rule 41 (elif_statement -> empty .)
-    DOUBLE          reduce using rule 41 (elif_statement -> empty .)
-    CHAR            reduce using rule 41 (elif_statement -> empty .)
-    STRING          reduce using rule 41 (elif_statement -> empty .)
-    BOOL            reduce using rule 41 (elif_statement -> empty .)
-    VOID            reduce using rule 41 (elif_statement -> empty .)
-    IF              reduce using rule 41 (elif_statement -> empty .)
-
-
-state 66
-
-    (42) return_statement -> GO BACK . TO THE_2 ABYSS
-    (43) return_statement -> GO BACK . TO THE_2 ABYSS ID
-    (44) return_statement -> GO BACK . TO THE_2 ABYSS literal
-
-    TO              shift and go to state 76
-
-
-state 67
-
-    (37) if_statement -> IF OPEN_PARENTHESIS . comparasion CLOSE_PARENTHESIS block
-    (45) comparasion -> . empty
-    (23) empty -> .
-
-    CLOSE_PARENTHESIS reduce using rule 23 (empty -> .)
-
-    comparasion                    shift and go to state 77
-    empty                          shift and go to state 69
-
-state 68
-
-    (33) while_statement -> WHILE OPEN_PARENTHESIS comparasion . CLOSE_PARENTHESIS block
-
-    CLOSE_PARENTHESIS shift and go to state 78
-
+    else_statement                 shift and go to state 89
+    empty                          shift and go to state 92
 
 state 69
 
-    (45) comparasion -> empty .
+    (42) elif_statement -> empty .
 
-    CLOSE_PARENTHESIS reduce using rule 45 (comparasion -> empty .)
+    HOWEVER         reduce using rule 42 (elif_statement -> empty .)
+    ELSE            reduce using rule 42 (elif_statement -> empty .)
+    CLOSE_BRACE     reduce using rule 42 (elif_statement -> empty .)
+    WHILE           reduce using rule 42 (elif_statement -> empty .)
+    THE_1           reduce using rule 42 (elif_statement -> empty .)
+    YOU             reduce using rule 42 (elif_statement -> empty .)
+    GO              reduce using rule 42 (elif_statement -> empty .)
+    ID              reduce using rule 42 (elif_statement -> empty .)
+    UNSIGNED        reduce using rule 42 (elif_statement -> empty .)
+    SHORT           reduce using rule 42 (elif_statement -> empty .)
+    INT             reduce using rule 42 (elif_statement -> empty .)
+    LONG            reduce using rule 42 (elif_statement -> empty .)
+    FLOAT           reduce using rule 42 (elif_statement -> empty .)
+    DOUBLE          reduce using rule 42 (elif_statement -> empty .)
+    CHAR            reduce using rule 42 (elif_statement -> empty .)
+    STRING          reduce using rule 42 (elif_statement -> empty .)
+    BOOL            reduce using rule 42 (elif_statement -> empty .)
+    VOID            reduce using rule 42 (elif_statement -> empty .)
+    IF              reduce using rule 42 (elif_statement -> empty .)
 
 
 state 70
 
-    (34) continue_statement -> THE_1 QUEST CONTINUES .
+    (43) return_statement -> GO BACK . TO THE_2 ABYSS
+    (44) return_statement -> GO BACK . TO THE_2 ABYSS ID
+    (45) return_statement -> GO BACK . TO THE_2 ABYSS literal
 
-    SEMICOLON       reduce using rule 34 (continue_statement -> THE_1 QUEST CONTINUES .)
+    TO              shift and go to state 93
 
 
 state 71
 
-    (35) break_statement -> YOU SHALL NOT . PASS
+    (38) if_statement -> IF OPEN_PARENTHESIS . comparasion_list CLOSE_PARENTHESIS block
+    (46) comparasion_list -> . comparasion
+    (47) comparasion_list -> . comparasion_list logic_operator comparasion
+    (48) comparasion -> . values
+    (49) comparasion -> . values value_operators values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
 
-    PASS            shift and go to state 79
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
 
+    comparasion_list               shift and go to state 94
+    comparasion                    shift and go to state 84
+    values                         shift and go to state 85
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
 
 state 72
 
-    (36) if_else_statement -> if_statement elif_statement else_statement .
+    (72) values -> ID .
+    (66) call_function -> ID . OPEN_PARENTHESIS args CLOSE_PARENTHESIS
+    (81) expression -> ID .
 
-    CLOSE_BRACE     reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    WHILE           reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    THE_1           reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    YOU             reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    GO              reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    UNSIGNED        reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    SHORT           reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    INT             reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    LONG            reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    FLOAT           reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    DOUBLE          reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    CHAR            reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    STRING          reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    BOOL            reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    VOID            reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
-    IF              reduce using rule 36 (if_else_statement -> if_statement elif_statement else_statement .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 72 (values -> ID .)
+    SEMICOLON       reduce using rule 72 (values -> ID .)
+    OPEN_PARENTHESIS shift and go to state 95
+    ADD             reduce using rule 81 (expression -> ID .)
+    SUB             reduce using rule 81 (expression -> ID .)
+    DIV             reduce using rule 81 (expression -> ID .)
+    MULT            reduce using rule 81 (expression -> ID .)
+    MOD             reduce using rule 81 (expression -> ID .)
+    POW             reduce using rule 81 (expression -> ID .)
+
+  ! SEMICOLON       [ reduce using rule 81 (expression -> ID .) ]
 
 
 state 73
 
-    (40) elif_statement -> elif_statement HOWEVER . WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
+    (64) assign_statement -> ID ASSIGN values .
 
-    WHEN            shift and go to state 80
+    SEMICOLON       reduce using rule 64 (assign_statement -> ID ASSIGN values .)
 
 
 state 74
 
-    (38) else_statement -> ELSE . block
-    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+    (65) assign_statement -> ID ASSIGN call_function .
 
-    OPEN_BRACE      shift and go to state 36
+    SEMICOLON       reduce using rule 65 (assign_statement -> ID ASSIGN call_function .)
 
-    block                          shift and go to state 81
 
 state 75
 
-    (39) else_statement -> empty .
+    (71) values -> literal .
+    (80) expression -> literal .
 
-    CLOSE_BRACE     reduce using rule 39 (else_statement -> empty .)
-    WHILE           reduce using rule 39 (else_statement -> empty .)
-    THE_1           reduce using rule 39 (else_statement -> empty .)
-    YOU             reduce using rule 39 (else_statement -> empty .)
-    GO              reduce using rule 39 (else_statement -> empty .)
-    UNSIGNED        reduce using rule 39 (else_statement -> empty .)
-    SHORT           reduce using rule 39 (else_statement -> empty .)
-    INT             reduce using rule 39 (else_statement -> empty .)
-    LONG            reduce using rule 39 (else_statement -> empty .)
-    FLOAT           reduce using rule 39 (else_statement -> empty .)
-    DOUBLE          reduce using rule 39 (else_statement -> empty .)
-    CHAR            reduce using rule 39 (else_statement -> empty .)
-    STRING          reduce using rule 39 (else_statement -> empty .)
-    BOOL            reduce using rule 39 (else_statement -> empty .)
-    VOID            reduce using rule 39 (else_statement -> empty .)
-    IF              reduce using rule 39 (else_statement -> empty .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for EQUAL resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for LESS resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for LESS_EQUAL resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for GREATER resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for GREATER_EQUAL resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for CLOSE_PARENTHESIS resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for AND resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for OR resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for XOR resolved using rule 71 (values -> literal .)
+  ! reduce/reduce conflict for COMMA resolved using rule 71 (values -> literal .)
+    SEMICOLON       reduce using rule 71 (values -> literal .)
+    EQUAL           reduce using rule 71 (values -> literal .)
+    LESS            reduce using rule 71 (values -> literal .)
+    LESS_EQUAL      reduce using rule 71 (values -> literal .)
+    GREATER         reduce using rule 71 (values -> literal .)
+    GREATER_EQUAL   reduce using rule 71 (values -> literal .)
+    CLOSE_PARENTHESIS reduce using rule 71 (values -> literal .)
+    AND             reduce using rule 71 (values -> literal .)
+    OR              reduce using rule 71 (values -> literal .)
+    XOR             reduce using rule 71 (values -> literal .)
+    COMMA           reduce using rule 71 (values -> literal .)
+    ADD             reduce using rule 80 (expression -> literal .)
+    SUB             reduce using rule 80 (expression -> literal .)
+    DIV             reduce using rule 80 (expression -> literal .)
+    MULT            reduce using rule 80 (expression -> literal .)
+    MOD             reduce using rule 80 (expression -> literal .)
+    POW             reduce using rule 80 (expression -> literal .)
+
+  ! SEMICOLON       [ reduce using rule 80 (expression -> literal .) ]
+  ! EQUAL           [ reduce using rule 80 (expression -> literal .) ]
+  ! LESS            [ reduce using rule 80 (expression -> literal .) ]
+  ! LESS_EQUAL      [ reduce using rule 80 (expression -> literal .) ]
+  ! GREATER         [ reduce using rule 80 (expression -> literal .) ]
+  ! GREATER_EQUAL   [ reduce using rule 80 (expression -> literal .) ]
+  ! CLOSE_PARENTHESIS [ reduce using rule 80 (expression -> literal .) ]
+  ! AND             [ reduce using rule 80 (expression -> literal .) ]
+  ! OR              [ reduce using rule 80 (expression -> literal .) ]
+  ! XOR             [ reduce using rule 80 (expression -> literal .) ]
+  ! COMMA           [ reduce using rule 80 (expression -> literal .) ]
 
 
 state 76
 
-    (42) return_statement -> GO BACK TO . THE_2 ABYSS
-    (43) return_statement -> GO BACK TO . THE_2 ABYSS ID
-    (44) return_statement -> GO BACK TO . THE_2 ABYSS literal
+    (73) values -> expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
 
-    THE_2           shift and go to state 82
+    SEMICOLON       reduce using rule 73 (values -> expression .)
+    EQUAL           reduce using rule 73 (values -> expression .)
+    LESS            reduce using rule 73 (values -> expression .)
+    LESS_EQUAL      reduce using rule 73 (values -> expression .)
+    GREATER         reduce using rule 73 (values -> expression .)
+    GREATER_EQUAL   reduce using rule 73 (values -> expression .)
+    CLOSE_PARENTHESIS reduce using rule 73 (values -> expression .)
+    AND             reduce using rule 73 (values -> expression .)
+    OR              reduce using rule 73 (values -> expression .)
+    XOR             reduce using rule 73 (values -> expression .)
+    COMMA           reduce using rule 73 (values -> expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
 
 
 state 77
 
-    (37) if_statement -> IF OPEN_PARENTHESIS comparasion . CLOSE_PARENTHESIS block
+    (58) literal -> INT_LITERAL .
 
-    CLOSE_PARENTHESIS shift and go to state 83
+    SEMICOLON       reduce using rule 58 (literal -> INT_LITERAL .)
+    ADD             reduce using rule 58 (literal -> INT_LITERAL .)
+    SUB             reduce using rule 58 (literal -> INT_LITERAL .)
+    DIV             reduce using rule 58 (literal -> INT_LITERAL .)
+    MULT            reduce using rule 58 (literal -> INT_LITERAL .)
+    MOD             reduce using rule 58 (literal -> INT_LITERAL .)
+    POW             reduce using rule 58 (literal -> INT_LITERAL .)
+    EQUAL           reduce using rule 58 (literal -> INT_LITERAL .)
+    LESS            reduce using rule 58 (literal -> INT_LITERAL .)
+    LESS_EQUAL      reduce using rule 58 (literal -> INT_LITERAL .)
+    GREATER         reduce using rule 58 (literal -> INT_LITERAL .)
+    GREATER_EQUAL   reduce using rule 58 (literal -> INT_LITERAL .)
+    CLOSE_PARENTHESIS reduce using rule 58 (literal -> INT_LITERAL .)
+    AND             reduce using rule 58 (literal -> INT_LITERAL .)
+    OR              reduce using rule 58 (literal -> INT_LITERAL .)
+    XOR             reduce using rule 58 (literal -> INT_LITERAL .)
+    COMMA           reduce using rule 58 (literal -> INT_LITERAL .)
 
 
 state 78
 
-    (33) while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS . block
-    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+    (59) literal -> FLOAT_LITERAL .
 
-    OPEN_BRACE      shift and go to state 36
+    SEMICOLON       reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    ADD             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    SUB             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    DIV             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    MULT            reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    MOD             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    POW             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    EQUAL           reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    LESS            reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    LESS_EQUAL      reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    GREATER         reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    GREATER_EQUAL   reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    CLOSE_PARENTHESIS reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    AND             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    OR              reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    XOR             reduce using rule 59 (literal -> FLOAT_LITERAL .)
+    COMMA           reduce using rule 59 (literal -> FLOAT_LITERAL .)
 
-    block                          shift and go to state 84
 
 state 79
 
-    (35) break_statement -> YOU SHALL NOT PASS .
+    (60) literal -> CHAR_LITERAL .
 
-    SEMICOLON       reduce using rule 35 (break_statement -> YOU SHALL NOT PASS .)
+    SEMICOLON       reduce using rule 60 (literal -> CHAR_LITERAL .)
+    ADD             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    SUB             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    DIV             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    MULT            reduce using rule 60 (literal -> CHAR_LITERAL .)
+    MOD             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    POW             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    EQUAL           reduce using rule 60 (literal -> CHAR_LITERAL .)
+    LESS            reduce using rule 60 (literal -> CHAR_LITERAL .)
+    LESS_EQUAL      reduce using rule 60 (literal -> CHAR_LITERAL .)
+    GREATER         reduce using rule 60 (literal -> CHAR_LITERAL .)
+    GREATER_EQUAL   reduce using rule 60 (literal -> CHAR_LITERAL .)
+    CLOSE_PARENTHESIS reduce using rule 60 (literal -> CHAR_LITERAL .)
+    AND             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    OR              reduce using rule 60 (literal -> CHAR_LITERAL .)
+    XOR             reduce using rule 60 (literal -> CHAR_LITERAL .)
+    COMMA           reduce using rule 60 (literal -> CHAR_LITERAL .)
 
 
 state 80
 
-    (40) elif_statement -> elif_statement HOWEVER WHEN . OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block
+    (61) literal -> STRING_LITERAL .
 
-    OPEN_PARENTHESIS shift and go to state 85
+    SEMICOLON       reduce using rule 61 (literal -> STRING_LITERAL .)
+    ADD             reduce using rule 61 (literal -> STRING_LITERAL .)
+    SUB             reduce using rule 61 (literal -> STRING_LITERAL .)
+    DIV             reduce using rule 61 (literal -> STRING_LITERAL .)
+    MULT            reduce using rule 61 (literal -> STRING_LITERAL .)
+    MOD             reduce using rule 61 (literal -> STRING_LITERAL .)
+    POW             reduce using rule 61 (literal -> STRING_LITERAL .)
+    EQUAL           reduce using rule 61 (literal -> STRING_LITERAL .)
+    LESS            reduce using rule 61 (literal -> STRING_LITERAL .)
+    LESS_EQUAL      reduce using rule 61 (literal -> STRING_LITERAL .)
+    GREATER         reduce using rule 61 (literal -> STRING_LITERAL .)
+    GREATER_EQUAL   reduce using rule 61 (literal -> STRING_LITERAL .)
+    CLOSE_PARENTHESIS reduce using rule 61 (literal -> STRING_LITERAL .)
+    AND             reduce using rule 61 (literal -> STRING_LITERAL .)
+    OR              reduce using rule 61 (literal -> STRING_LITERAL .)
+    XOR             reduce using rule 61 (literal -> STRING_LITERAL .)
+    COMMA           reduce using rule 61 (literal -> STRING_LITERAL .)
 
 
 state 81
 
-    (38) else_statement -> ELSE block .
+    (62) literal -> BOOL_FALSE .
 
-    CLOSE_BRACE     reduce using rule 38 (else_statement -> ELSE block .)
-    WHILE           reduce using rule 38 (else_statement -> ELSE block .)
-    THE_1           reduce using rule 38 (else_statement -> ELSE block .)
-    YOU             reduce using rule 38 (else_statement -> ELSE block .)
-    GO              reduce using rule 38 (else_statement -> ELSE block .)
-    UNSIGNED        reduce using rule 38 (else_statement -> ELSE block .)
-    SHORT           reduce using rule 38 (else_statement -> ELSE block .)
-    INT             reduce using rule 38 (else_statement -> ELSE block .)
-    LONG            reduce using rule 38 (else_statement -> ELSE block .)
-    FLOAT           reduce using rule 38 (else_statement -> ELSE block .)
-    DOUBLE          reduce using rule 38 (else_statement -> ELSE block .)
-    CHAR            reduce using rule 38 (else_statement -> ELSE block .)
-    STRING          reduce using rule 38 (else_statement -> ELSE block .)
-    BOOL            reduce using rule 38 (else_statement -> ELSE block .)
-    VOID            reduce using rule 38 (else_statement -> ELSE block .)
-    IF              reduce using rule 38 (else_statement -> ELSE block .)
+    SEMICOLON       reduce using rule 62 (literal -> BOOL_FALSE .)
+    ADD             reduce using rule 62 (literal -> BOOL_FALSE .)
+    SUB             reduce using rule 62 (literal -> BOOL_FALSE .)
+    DIV             reduce using rule 62 (literal -> BOOL_FALSE .)
+    MULT            reduce using rule 62 (literal -> BOOL_FALSE .)
+    MOD             reduce using rule 62 (literal -> BOOL_FALSE .)
+    POW             reduce using rule 62 (literal -> BOOL_FALSE .)
+    EQUAL           reduce using rule 62 (literal -> BOOL_FALSE .)
+    LESS            reduce using rule 62 (literal -> BOOL_FALSE .)
+    LESS_EQUAL      reduce using rule 62 (literal -> BOOL_FALSE .)
+    GREATER         reduce using rule 62 (literal -> BOOL_FALSE .)
+    GREATER_EQUAL   reduce using rule 62 (literal -> BOOL_FALSE .)
+    CLOSE_PARENTHESIS reduce using rule 62 (literal -> BOOL_FALSE .)
+    AND             reduce using rule 62 (literal -> BOOL_FALSE .)
+    OR              reduce using rule 62 (literal -> BOOL_FALSE .)
+    XOR             reduce using rule 62 (literal -> BOOL_FALSE .)
+    COMMA           reduce using rule 62 (literal -> BOOL_FALSE .)
 
 
 state 82
 
-    (42) return_statement -> GO BACK TO THE_2 . ABYSS
-    (43) return_statement -> GO BACK TO THE_2 . ABYSS ID
-    (44) return_statement -> GO BACK TO THE_2 . ABYSS literal
+    (63) literal -> BOOL_TRUE .
 
-    ABYSS           shift and go to state 86
+    SEMICOLON       reduce using rule 63 (literal -> BOOL_TRUE .)
+    ADD             reduce using rule 63 (literal -> BOOL_TRUE .)
+    SUB             reduce using rule 63 (literal -> BOOL_TRUE .)
+    DIV             reduce using rule 63 (literal -> BOOL_TRUE .)
+    MULT            reduce using rule 63 (literal -> BOOL_TRUE .)
+    MOD             reduce using rule 63 (literal -> BOOL_TRUE .)
+    POW             reduce using rule 63 (literal -> BOOL_TRUE .)
+    EQUAL           reduce using rule 63 (literal -> BOOL_TRUE .)
+    LESS            reduce using rule 63 (literal -> BOOL_TRUE .)
+    LESS_EQUAL      reduce using rule 63 (literal -> BOOL_TRUE .)
+    GREATER         reduce using rule 63 (literal -> BOOL_TRUE .)
+    GREATER_EQUAL   reduce using rule 63 (literal -> BOOL_TRUE .)
+    CLOSE_PARENTHESIS reduce using rule 63 (literal -> BOOL_TRUE .)
+    AND             reduce using rule 63 (literal -> BOOL_TRUE .)
+    OR              reduce using rule 63 (literal -> BOOL_TRUE .)
+    XOR             reduce using rule 63 (literal -> BOOL_TRUE .)
+    COMMA           reduce using rule 63 (literal -> BOOL_TRUE .)
 
 
 state 83
 
-    (37) if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS . block
-    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+    (34) while_statement -> WHILE OPEN_PARENTHESIS comparasion_list . CLOSE_PARENTHESIS block
+    (47) comparasion_list -> comparasion_list . logic_operator comparasion
+    (55) logic_operator -> . AND
+    (56) logic_operator -> . OR
+    (57) logic_operator -> . XOR
 
-    OPEN_BRACE      shift and go to state 36
+    CLOSE_PARENTHESIS shift and go to state 102
+    AND             shift and go to state 104
+    OR              shift and go to state 105
+    XOR             shift and go to state 106
 
-    block                          shift and go to state 87
+    logic_operator                 shift and go to state 103
 
 state 84
 
-    (33) while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .
+    (46) comparasion_list -> comparasion .
 
-    CLOSE_BRACE     reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    WHILE           reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    THE_1           reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    YOU             reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    GO              reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    UNSIGNED        reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    SHORT           reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    INT             reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    LONG            reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    FLOAT           reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    DOUBLE          reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    CHAR            reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    STRING          reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    BOOL            reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    VOID            reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    IF              reduce using rule 33 (while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
+    CLOSE_PARENTHESIS reduce using rule 46 (comparasion_list -> comparasion .)
+    AND             reduce using rule 46 (comparasion_list -> comparasion .)
+    OR              reduce using rule 46 (comparasion_list -> comparasion .)
+    XOR             reduce using rule 46 (comparasion_list -> comparasion .)
 
 
 state 85
 
-    (40) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS . comparasion CLOSE_PARENTHESIS block
-    (45) comparasion -> . empty
-    (23) empty -> .
+    (48) comparasion -> values .
+    (49) comparasion -> values . value_operators values
+    (50) value_operators -> . EQUAL
+    (51) value_operators -> . LESS
+    (52) value_operators -> . LESS_EQUAL
+    (53) value_operators -> . GREATER
+    (54) value_operators -> . GREATER_EQUAL
 
-    CLOSE_PARENTHESIS reduce using rule 23 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 48 (comparasion -> values .)
+    AND             reduce using rule 48 (comparasion -> values .)
+    OR              reduce using rule 48 (comparasion -> values .)
+    XOR             reduce using rule 48 (comparasion -> values .)
+    EQUAL           shift and go to state 108
+    LESS            shift and go to state 109
+    LESS_EQUAL      shift and go to state 110
+    GREATER         shift and go to state 111
+    GREATER_EQUAL   shift and go to state 112
 
-    comparasion                    shift and go to state 88
-    empty                          shift and go to state 69
+    value_operators                shift and go to state 107
 
 state 86
 
-    (42) return_statement -> GO BACK TO THE_2 ABYSS .
-    (43) return_statement -> GO BACK TO THE_2 ABYSS . ID
-    (44) return_statement -> GO BACK TO THE_2 ABYSS . literal
-    (46) literal -> . INT_LITERAL
-    (47) literal -> . FLOAT_LITERAL
-    (48) literal -> . CHAR_LITERAL
-    (49) literal -> . STRING_LITERAL
-    (50) literal -> . BOOL_FALSE
-    (51) literal -> . BOOL_TRUE
+    (72) values -> ID .
+    (81) expression -> ID .
 
-    SEMICOLON       reduce using rule 42 (return_statement -> GO BACK TO THE_2 ABYSS .)
-    ID              shift and go to state 89
-    INT_LITERAL     shift and go to state 91
-    FLOAT_LITERAL   shift and go to state 92
-    CHAR_LITERAL    shift and go to state 93
-    STRING_LITERAL  shift and go to state 94
-    BOOL_FALSE      shift and go to state 95
-    BOOL_TRUE       shift and go to state 96
+  ! reduce/reduce conflict for EQUAL resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for LESS resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for LESS_EQUAL resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for GREATER resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for GREATER_EQUAL resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for CLOSE_PARENTHESIS resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for AND resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for OR resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for XOR resolved using rule 72 (values -> ID .)
+  ! reduce/reduce conflict for COMMA resolved using rule 72 (values -> ID .)
+    EQUAL           reduce using rule 72 (values -> ID .)
+    LESS            reduce using rule 72 (values -> ID .)
+    LESS_EQUAL      reduce using rule 72 (values -> ID .)
+    GREATER         reduce using rule 72 (values -> ID .)
+    GREATER_EQUAL   reduce using rule 72 (values -> ID .)
+    CLOSE_PARENTHESIS reduce using rule 72 (values -> ID .)
+    AND             reduce using rule 72 (values -> ID .)
+    OR              reduce using rule 72 (values -> ID .)
+    XOR             reduce using rule 72 (values -> ID .)
+    COMMA           reduce using rule 72 (values -> ID .)
+    ADD             reduce using rule 81 (expression -> ID .)
+    SUB             reduce using rule 81 (expression -> ID .)
+    DIV             reduce using rule 81 (expression -> ID .)
+    MULT            reduce using rule 81 (expression -> ID .)
+    MOD             reduce using rule 81 (expression -> ID .)
+    POW             reduce using rule 81 (expression -> ID .)
 
-    literal                        shift and go to state 90
+  ! EQUAL           [ reduce using rule 81 (expression -> ID .) ]
+  ! LESS            [ reduce using rule 81 (expression -> ID .) ]
+  ! LESS_EQUAL      [ reduce using rule 81 (expression -> ID .) ]
+  ! GREATER         [ reduce using rule 81 (expression -> ID .) ]
+  ! GREATER_EQUAL   [ reduce using rule 81 (expression -> ID .) ]
+  ! CLOSE_PARENTHESIS [ reduce using rule 81 (expression -> ID .) ]
+  ! AND             [ reduce using rule 81 (expression -> ID .) ]
+  ! OR              [ reduce using rule 81 (expression -> ID .) ]
+  ! XOR             [ reduce using rule 81 (expression -> ID .) ]
+  ! COMMA           [ reduce using rule 81 (expression -> ID .) ]
+
 
 state 87
 
-    (37) if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .
+    (35) continue_statement -> THE_1 QUEST CONTINUES .
 
-    HOWEVER         reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    ELSE            reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    CLOSE_BRACE     reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    WHILE           reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    THE_1           reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    YOU             reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    GO              reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    UNSIGNED        reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    SHORT           reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    INT             reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    LONG            reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    FLOAT           reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    DOUBLE          reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    CHAR            reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    STRING          reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    BOOL            reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    VOID            reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    IF              reduce using rule 37 (if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
+    SEMICOLON       reduce using rule 35 (continue_statement -> THE_1 QUEST CONTINUES .)
 
 
 state 88
 
-    (40) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion . CLOSE_PARENTHESIS block
+    (36) break_statement -> YOU SHALL NOT . PASS
 
-    CLOSE_PARENTHESIS shift and go to state 97
+    PASS            shift and go to state 113
 
 
 state 89
 
-    (43) return_statement -> GO BACK TO THE_2 ABYSS ID .
+    (37) if_else_statement -> if_statement elif_statement else_statement .
 
-    SEMICOLON       reduce using rule 43 (return_statement -> GO BACK TO THE_2 ABYSS ID .)
+    CLOSE_BRACE     reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    WHILE           reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    THE_1           reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    YOU             reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    GO              reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    ID              reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    UNSIGNED        reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    SHORT           reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    INT             reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    LONG            reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    FLOAT           reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    DOUBLE          reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    CHAR            reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    STRING          reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    BOOL            reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    VOID            reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
+    IF              reduce using rule 37 (if_else_statement -> if_statement elif_statement else_statement .)
 
 
 state 90
 
-    (44) return_statement -> GO BACK TO THE_2 ABYSS literal .
+    (41) elif_statement -> elif_statement HOWEVER . WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
 
-    SEMICOLON       reduce using rule 44 (return_statement -> GO BACK TO THE_2 ABYSS literal .)
+    WHEN            shift and go to state 114
 
 
 state 91
 
-    (46) literal -> INT_LITERAL .
-
-    SEMICOLON       reduce using rule 46 (literal -> INT_LITERAL .)
-
-
-state 92
-
-    (47) literal -> FLOAT_LITERAL .
-
-    SEMICOLON       reduce using rule 47 (literal -> FLOAT_LITERAL .)
-
-
-state 93
-
-    (48) literal -> CHAR_LITERAL .
-
-    SEMICOLON       reduce using rule 48 (literal -> CHAR_LITERAL .)
-
-
-state 94
-
-    (49) literal -> STRING_LITERAL .
-
-    SEMICOLON       reduce using rule 49 (literal -> STRING_LITERAL .)
-
-
-state 95
-
-    (50) literal -> BOOL_FALSE .
-
-    SEMICOLON       reduce using rule 50 (literal -> BOOL_FALSE .)
-
-
-state 96
-
-    (51) literal -> BOOL_TRUE .
-
-    SEMICOLON       reduce using rule 51 (literal -> BOOL_TRUE .)
-
-
-state 97
-
-    (40) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS . block
+    (39) else_statement -> ELSE . block
     (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
 
     OPEN_BRACE      shift and go to state 36
 
-    block                          shift and go to state 98
+    block                          shift and go to state 115
+
+state 92
+
+    (40) else_statement -> empty .
+
+    CLOSE_BRACE     reduce using rule 40 (else_statement -> empty .)
+    WHILE           reduce using rule 40 (else_statement -> empty .)
+    THE_1           reduce using rule 40 (else_statement -> empty .)
+    YOU             reduce using rule 40 (else_statement -> empty .)
+    GO              reduce using rule 40 (else_statement -> empty .)
+    ID              reduce using rule 40 (else_statement -> empty .)
+    UNSIGNED        reduce using rule 40 (else_statement -> empty .)
+    SHORT           reduce using rule 40 (else_statement -> empty .)
+    INT             reduce using rule 40 (else_statement -> empty .)
+    LONG            reduce using rule 40 (else_statement -> empty .)
+    FLOAT           reduce using rule 40 (else_statement -> empty .)
+    DOUBLE          reduce using rule 40 (else_statement -> empty .)
+    CHAR            reduce using rule 40 (else_statement -> empty .)
+    STRING          reduce using rule 40 (else_statement -> empty .)
+    BOOL            reduce using rule 40 (else_statement -> empty .)
+    VOID            reduce using rule 40 (else_statement -> empty .)
+    IF              reduce using rule 40 (else_statement -> empty .)
+
+
+state 93
+
+    (43) return_statement -> GO BACK TO . THE_2 ABYSS
+    (44) return_statement -> GO BACK TO . THE_2 ABYSS ID
+    (45) return_statement -> GO BACK TO . THE_2 ABYSS literal
+
+    THE_2           shift and go to state 116
+
+
+state 94
+
+    (38) if_statement -> IF OPEN_PARENTHESIS comparasion_list . CLOSE_PARENTHESIS block
+    (47) comparasion_list -> comparasion_list . logic_operator comparasion
+    (55) logic_operator -> . AND
+    (56) logic_operator -> . OR
+    (57) logic_operator -> . XOR
+
+    CLOSE_PARENTHESIS shift and go to state 117
+    AND             shift and go to state 104
+    OR              shift and go to state 105
+    XOR             shift and go to state 106
+
+    logic_operator                 shift and go to state 103
+
+state 95
+
+    (66) call_function -> ID OPEN_PARENTHESIS . args CLOSE_PARENTHESIS
+    (67) args -> . args_list
+    (68) args -> . empty
+    (69) args_list -> . values
+    (70) args_list -> . args_list COMMA values
+    (23) empty -> .
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    CLOSE_PARENTHESIS reduce using rule 23 (empty -> .)
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    args                           shift and go to state 118
+    args_list                      shift and go to state 119
+    empty                          shift and go to state 120
+    values                         shift and go to state 121
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 96
+
+    (74) expression -> expression ADD . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    expression                     shift and go to state 122
+    literal                        shift and go to state 123
+
+state 97
+
+    (75) expression -> expression SUB . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    expression                     shift and go to state 125
+    literal                        shift and go to state 123
 
 state 98
 
-    (40) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .
+    (76) expression -> expression DIV . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
 
-    HOWEVER         reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    ELSE            reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    CLOSE_BRACE     reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    WHILE           reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    THE_1           reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    YOU             reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    GO              reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    UNSIGNED        reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    SHORT           reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    INT             reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    LONG            reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    FLOAT           reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    DOUBLE          reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    CHAR            reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    STRING          reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    BOOL            reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    VOID            reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
-    IF              reduce using rule 40 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block .)
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
 
+    expression                     shift and go to state 126
+    literal                        shift and go to state 123
+
+state 99
+
+    (77) expression -> expression MULT . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    expression                     shift and go to state 127
+    literal                        shift and go to state 123
+
+state 100
+
+    (78) expression -> expression MOD . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    expression                     shift and go to state 128
+    literal                        shift and go to state 123
+
+state 101
+
+    (79) expression -> expression POW . expression
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    ID              shift and go to state 124
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    expression                     shift and go to state 129
+    literal                        shift and go to state 123
+
+state 102
+
+    (34) while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS . block
+    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 36
+
+    block                          shift and go to state 130
+
+state 103
+
+    (47) comparasion_list -> comparasion_list logic_operator . comparasion
+    (48) comparasion -> . values
+    (49) comparasion -> . values value_operators values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    comparasion                    shift and go to state 131
+    values                         shift and go to state 85
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 104
+
+    (55) logic_operator -> AND .
+
+    ID              reduce using rule 55 (logic_operator -> AND .)
+    INT_LITERAL     reduce using rule 55 (logic_operator -> AND .)
+    FLOAT_LITERAL   reduce using rule 55 (logic_operator -> AND .)
+    CHAR_LITERAL    reduce using rule 55 (logic_operator -> AND .)
+    STRING_LITERAL  reduce using rule 55 (logic_operator -> AND .)
+    BOOL_FALSE      reduce using rule 55 (logic_operator -> AND .)
+    BOOL_TRUE       reduce using rule 55 (logic_operator -> AND .)
+
+
+state 105
+
+    (56) logic_operator -> OR .
+
+    ID              reduce using rule 56 (logic_operator -> OR .)
+    INT_LITERAL     reduce using rule 56 (logic_operator -> OR .)
+    FLOAT_LITERAL   reduce using rule 56 (logic_operator -> OR .)
+    CHAR_LITERAL    reduce using rule 56 (logic_operator -> OR .)
+    STRING_LITERAL  reduce using rule 56 (logic_operator -> OR .)
+    BOOL_FALSE      reduce using rule 56 (logic_operator -> OR .)
+    BOOL_TRUE       reduce using rule 56 (logic_operator -> OR .)
+
+
+state 106
+
+    (57) logic_operator -> XOR .
+
+    ID              reduce using rule 57 (logic_operator -> XOR .)
+    INT_LITERAL     reduce using rule 57 (logic_operator -> XOR .)
+    FLOAT_LITERAL   reduce using rule 57 (logic_operator -> XOR .)
+    CHAR_LITERAL    reduce using rule 57 (logic_operator -> XOR .)
+    STRING_LITERAL  reduce using rule 57 (logic_operator -> XOR .)
+    BOOL_FALSE      reduce using rule 57 (logic_operator -> XOR .)
+    BOOL_TRUE       reduce using rule 57 (logic_operator -> XOR .)
+
+
+state 107
+
+    (49) comparasion -> values value_operators . values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    values                         shift and go to state 132
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 108
+
+    (50) value_operators -> EQUAL .
+
+    ID              reduce using rule 50 (value_operators -> EQUAL .)
+    INT_LITERAL     reduce using rule 50 (value_operators -> EQUAL .)
+    FLOAT_LITERAL   reduce using rule 50 (value_operators -> EQUAL .)
+    CHAR_LITERAL    reduce using rule 50 (value_operators -> EQUAL .)
+    STRING_LITERAL  reduce using rule 50 (value_operators -> EQUAL .)
+    BOOL_FALSE      reduce using rule 50 (value_operators -> EQUAL .)
+    BOOL_TRUE       reduce using rule 50 (value_operators -> EQUAL .)
+
+
+state 109
+
+    (51) value_operators -> LESS .
+
+    ID              reduce using rule 51 (value_operators -> LESS .)
+    INT_LITERAL     reduce using rule 51 (value_operators -> LESS .)
+    FLOAT_LITERAL   reduce using rule 51 (value_operators -> LESS .)
+    CHAR_LITERAL    reduce using rule 51 (value_operators -> LESS .)
+    STRING_LITERAL  reduce using rule 51 (value_operators -> LESS .)
+    BOOL_FALSE      reduce using rule 51 (value_operators -> LESS .)
+    BOOL_TRUE       reduce using rule 51 (value_operators -> LESS .)
+
+
+state 110
+
+    (52) value_operators -> LESS_EQUAL .
+
+    ID              reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    INT_LITERAL     reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    FLOAT_LITERAL   reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    CHAR_LITERAL    reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    STRING_LITERAL  reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    BOOL_FALSE      reduce using rule 52 (value_operators -> LESS_EQUAL .)
+    BOOL_TRUE       reduce using rule 52 (value_operators -> LESS_EQUAL .)
+
+
+state 111
+
+    (53) value_operators -> GREATER .
+
+    ID              reduce using rule 53 (value_operators -> GREATER .)
+    INT_LITERAL     reduce using rule 53 (value_operators -> GREATER .)
+    FLOAT_LITERAL   reduce using rule 53 (value_operators -> GREATER .)
+    CHAR_LITERAL    reduce using rule 53 (value_operators -> GREATER .)
+    STRING_LITERAL  reduce using rule 53 (value_operators -> GREATER .)
+    BOOL_FALSE      reduce using rule 53 (value_operators -> GREATER .)
+    BOOL_TRUE       reduce using rule 53 (value_operators -> GREATER .)
+
+
+state 112
+
+    (54) value_operators -> GREATER_EQUAL .
+
+    ID              reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    INT_LITERAL     reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    FLOAT_LITERAL   reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    CHAR_LITERAL    reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    STRING_LITERAL  reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    BOOL_FALSE      reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+    BOOL_TRUE       reduce using rule 54 (value_operators -> GREATER_EQUAL .)
+
+
+state 113
+
+    (36) break_statement -> YOU SHALL NOT PASS .
+
+    SEMICOLON       reduce using rule 36 (break_statement -> YOU SHALL NOT PASS .)
+
+
+state 114
+
+    (41) elif_statement -> elif_statement HOWEVER WHEN . OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block
+
+    OPEN_PARENTHESIS shift and go to state 133
+
+
+state 115
+
+    (39) else_statement -> ELSE block .
+
+    CLOSE_BRACE     reduce using rule 39 (else_statement -> ELSE block .)
+    WHILE           reduce using rule 39 (else_statement -> ELSE block .)
+    THE_1           reduce using rule 39 (else_statement -> ELSE block .)
+    YOU             reduce using rule 39 (else_statement -> ELSE block .)
+    GO              reduce using rule 39 (else_statement -> ELSE block .)
+    ID              reduce using rule 39 (else_statement -> ELSE block .)
+    UNSIGNED        reduce using rule 39 (else_statement -> ELSE block .)
+    SHORT           reduce using rule 39 (else_statement -> ELSE block .)
+    INT             reduce using rule 39 (else_statement -> ELSE block .)
+    LONG            reduce using rule 39 (else_statement -> ELSE block .)
+    FLOAT           reduce using rule 39 (else_statement -> ELSE block .)
+    DOUBLE          reduce using rule 39 (else_statement -> ELSE block .)
+    CHAR            reduce using rule 39 (else_statement -> ELSE block .)
+    STRING          reduce using rule 39 (else_statement -> ELSE block .)
+    BOOL            reduce using rule 39 (else_statement -> ELSE block .)
+    VOID            reduce using rule 39 (else_statement -> ELSE block .)
+    IF              reduce using rule 39 (else_statement -> ELSE block .)
+
+
+state 116
+
+    (43) return_statement -> GO BACK TO THE_2 . ABYSS
+    (44) return_statement -> GO BACK TO THE_2 . ABYSS ID
+    (45) return_statement -> GO BACK TO THE_2 . ABYSS literal
+
+    ABYSS           shift and go to state 134
+
+
+state 117
+
+    (38) if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS . block
+    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 36
+
+    block                          shift and go to state 135
+
+state 118
+
+    (66) call_function -> ID OPEN_PARENTHESIS args . CLOSE_PARENTHESIS
+
+    CLOSE_PARENTHESIS shift and go to state 136
+
+
+state 119
+
+    (67) args -> args_list .
+    (70) args_list -> args_list . COMMA values
+
+    CLOSE_PARENTHESIS reduce using rule 67 (args -> args_list .)
+    COMMA           shift and go to state 137
+
+
+state 120
+
+    (68) args -> empty .
+
+    CLOSE_PARENTHESIS reduce using rule 68 (args -> empty .)
+
+
+state 121
+
+    (69) args_list -> values .
+
+    COMMA           reduce using rule 69 (args_list -> values .)
+    CLOSE_PARENTHESIS reduce using rule 69 (args_list -> values .)
+
+
+state 122
+
+    (74) expression -> expression ADD expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 74 (expression -> expression ADD expression .)
+    EQUAL           reduce using rule 74 (expression -> expression ADD expression .)
+    LESS            reduce using rule 74 (expression -> expression ADD expression .)
+    LESS_EQUAL      reduce using rule 74 (expression -> expression ADD expression .)
+    GREATER         reduce using rule 74 (expression -> expression ADD expression .)
+    GREATER_EQUAL   reduce using rule 74 (expression -> expression ADD expression .)
+    CLOSE_PARENTHESIS reduce using rule 74 (expression -> expression ADD expression .)
+    AND             reduce using rule 74 (expression -> expression ADD expression .)
+    OR              reduce using rule 74 (expression -> expression ADD expression .)
+    XOR             reduce using rule 74 (expression -> expression ADD expression .)
+    COMMA           reduce using rule 74 (expression -> expression ADD expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 74 (expression -> expression ADD expression .) ]
+  ! SUB             [ reduce using rule 74 (expression -> expression ADD expression .) ]
+  ! DIV             [ reduce using rule 74 (expression -> expression ADD expression .) ]
+  ! MULT            [ reduce using rule 74 (expression -> expression ADD expression .) ]
+  ! MOD             [ reduce using rule 74 (expression -> expression ADD expression .) ]
+  ! POW             [ reduce using rule 74 (expression -> expression ADD expression .) ]
+
+
+state 123
+
+    (80) expression -> literal .
+
+    ADD             reduce using rule 80 (expression -> literal .)
+    SUB             reduce using rule 80 (expression -> literal .)
+    DIV             reduce using rule 80 (expression -> literal .)
+    MULT            reduce using rule 80 (expression -> literal .)
+    MOD             reduce using rule 80 (expression -> literal .)
+    POW             reduce using rule 80 (expression -> literal .)
+    SEMICOLON       reduce using rule 80 (expression -> literal .)
+    EQUAL           reduce using rule 80 (expression -> literal .)
+    LESS            reduce using rule 80 (expression -> literal .)
+    LESS_EQUAL      reduce using rule 80 (expression -> literal .)
+    GREATER         reduce using rule 80 (expression -> literal .)
+    GREATER_EQUAL   reduce using rule 80 (expression -> literal .)
+    CLOSE_PARENTHESIS reduce using rule 80 (expression -> literal .)
+    AND             reduce using rule 80 (expression -> literal .)
+    OR              reduce using rule 80 (expression -> literal .)
+    XOR             reduce using rule 80 (expression -> literal .)
+    COMMA           reduce using rule 80 (expression -> literal .)
+
+
+state 124
+
+    (81) expression -> ID .
+
+    ADD             reduce using rule 81 (expression -> ID .)
+    SUB             reduce using rule 81 (expression -> ID .)
+    DIV             reduce using rule 81 (expression -> ID .)
+    MULT            reduce using rule 81 (expression -> ID .)
+    MOD             reduce using rule 81 (expression -> ID .)
+    POW             reduce using rule 81 (expression -> ID .)
+    SEMICOLON       reduce using rule 81 (expression -> ID .)
+    EQUAL           reduce using rule 81 (expression -> ID .)
+    LESS            reduce using rule 81 (expression -> ID .)
+    LESS_EQUAL      reduce using rule 81 (expression -> ID .)
+    GREATER         reduce using rule 81 (expression -> ID .)
+    GREATER_EQUAL   reduce using rule 81 (expression -> ID .)
+    CLOSE_PARENTHESIS reduce using rule 81 (expression -> ID .)
+    AND             reduce using rule 81 (expression -> ID .)
+    OR              reduce using rule 81 (expression -> ID .)
+    XOR             reduce using rule 81 (expression -> ID .)
+    COMMA           reduce using rule 81 (expression -> ID .)
+
+
+state 125
+
+    (75) expression -> expression SUB expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 75 (expression -> expression SUB expression .)
+    EQUAL           reduce using rule 75 (expression -> expression SUB expression .)
+    LESS            reduce using rule 75 (expression -> expression SUB expression .)
+    LESS_EQUAL      reduce using rule 75 (expression -> expression SUB expression .)
+    GREATER         reduce using rule 75 (expression -> expression SUB expression .)
+    GREATER_EQUAL   reduce using rule 75 (expression -> expression SUB expression .)
+    CLOSE_PARENTHESIS reduce using rule 75 (expression -> expression SUB expression .)
+    AND             reduce using rule 75 (expression -> expression SUB expression .)
+    OR              reduce using rule 75 (expression -> expression SUB expression .)
+    XOR             reduce using rule 75 (expression -> expression SUB expression .)
+    COMMA           reduce using rule 75 (expression -> expression SUB expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 75 (expression -> expression SUB expression .) ]
+  ! SUB             [ reduce using rule 75 (expression -> expression SUB expression .) ]
+  ! DIV             [ reduce using rule 75 (expression -> expression SUB expression .) ]
+  ! MULT            [ reduce using rule 75 (expression -> expression SUB expression .) ]
+  ! MOD             [ reduce using rule 75 (expression -> expression SUB expression .) ]
+  ! POW             [ reduce using rule 75 (expression -> expression SUB expression .) ]
+
+
+state 126
+
+    (76) expression -> expression DIV expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 76 (expression -> expression DIV expression .)
+    EQUAL           reduce using rule 76 (expression -> expression DIV expression .)
+    LESS            reduce using rule 76 (expression -> expression DIV expression .)
+    LESS_EQUAL      reduce using rule 76 (expression -> expression DIV expression .)
+    GREATER         reduce using rule 76 (expression -> expression DIV expression .)
+    GREATER_EQUAL   reduce using rule 76 (expression -> expression DIV expression .)
+    CLOSE_PARENTHESIS reduce using rule 76 (expression -> expression DIV expression .)
+    AND             reduce using rule 76 (expression -> expression DIV expression .)
+    OR              reduce using rule 76 (expression -> expression DIV expression .)
+    XOR             reduce using rule 76 (expression -> expression DIV expression .)
+    COMMA           reduce using rule 76 (expression -> expression DIV expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 76 (expression -> expression DIV expression .) ]
+  ! SUB             [ reduce using rule 76 (expression -> expression DIV expression .) ]
+  ! DIV             [ reduce using rule 76 (expression -> expression DIV expression .) ]
+  ! MULT            [ reduce using rule 76 (expression -> expression DIV expression .) ]
+  ! MOD             [ reduce using rule 76 (expression -> expression DIV expression .) ]
+  ! POW             [ reduce using rule 76 (expression -> expression DIV expression .) ]
+
+
+state 127
+
+    (77) expression -> expression MULT expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 77 (expression -> expression MULT expression .)
+    EQUAL           reduce using rule 77 (expression -> expression MULT expression .)
+    LESS            reduce using rule 77 (expression -> expression MULT expression .)
+    LESS_EQUAL      reduce using rule 77 (expression -> expression MULT expression .)
+    GREATER         reduce using rule 77 (expression -> expression MULT expression .)
+    GREATER_EQUAL   reduce using rule 77 (expression -> expression MULT expression .)
+    CLOSE_PARENTHESIS reduce using rule 77 (expression -> expression MULT expression .)
+    AND             reduce using rule 77 (expression -> expression MULT expression .)
+    OR              reduce using rule 77 (expression -> expression MULT expression .)
+    XOR             reduce using rule 77 (expression -> expression MULT expression .)
+    COMMA           reduce using rule 77 (expression -> expression MULT expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 77 (expression -> expression MULT expression .) ]
+  ! SUB             [ reduce using rule 77 (expression -> expression MULT expression .) ]
+  ! DIV             [ reduce using rule 77 (expression -> expression MULT expression .) ]
+  ! MULT            [ reduce using rule 77 (expression -> expression MULT expression .) ]
+  ! MOD             [ reduce using rule 77 (expression -> expression MULT expression .) ]
+  ! POW             [ reduce using rule 77 (expression -> expression MULT expression .) ]
+
+
+state 128
+
+    (78) expression -> expression MOD expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 78 (expression -> expression MOD expression .)
+    EQUAL           reduce using rule 78 (expression -> expression MOD expression .)
+    LESS            reduce using rule 78 (expression -> expression MOD expression .)
+    LESS_EQUAL      reduce using rule 78 (expression -> expression MOD expression .)
+    GREATER         reduce using rule 78 (expression -> expression MOD expression .)
+    GREATER_EQUAL   reduce using rule 78 (expression -> expression MOD expression .)
+    CLOSE_PARENTHESIS reduce using rule 78 (expression -> expression MOD expression .)
+    AND             reduce using rule 78 (expression -> expression MOD expression .)
+    OR              reduce using rule 78 (expression -> expression MOD expression .)
+    XOR             reduce using rule 78 (expression -> expression MOD expression .)
+    COMMA           reduce using rule 78 (expression -> expression MOD expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 78 (expression -> expression MOD expression .) ]
+  ! SUB             [ reduce using rule 78 (expression -> expression MOD expression .) ]
+  ! DIV             [ reduce using rule 78 (expression -> expression MOD expression .) ]
+  ! MULT            [ reduce using rule 78 (expression -> expression MOD expression .) ]
+  ! MOD             [ reduce using rule 78 (expression -> expression MOD expression .) ]
+  ! POW             [ reduce using rule 78 (expression -> expression MOD expression .) ]
+
+
+state 129
+
+    (79) expression -> expression POW expression .
+    (74) expression -> expression . ADD expression
+    (75) expression -> expression . SUB expression
+    (76) expression -> expression . DIV expression
+    (77) expression -> expression . MULT expression
+    (78) expression -> expression . MOD expression
+    (79) expression -> expression . POW expression
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POW resolved as shift
+    SEMICOLON       reduce using rule 79 (expression -> expression POW expression .)
+    EQUAL           reduce using rule 79 (expression -> expression POW expression .)
+    LESS            reduce using rule 79 (expression -> expression POW expression .)
+    LESS_EQUAL      reduce using rule 79 (expression -> expression POW expression .)
+    GREATER         reduce using rule 79 (expression -> expression POW expression .)
+    GREATER_EQUAL   reduce using rule 79 (expression -> expression POW expression .)
+    CLOSE_PARENTHESIS reduce using rule 79 (expression -> expression POW expression .)
+    AND             reduce using rule 79 (expression -> expression POW expression .)
+    OR              reduce using rule 79 (expression -> expression POW expression .)
+    XOR             reduce using rule 79 (expression -> expression POW expression .)
+    COMMA           reduce using rule 79 (expression -> expression POW expression .)
+    ADD             shift and go to state 96
+    SUB             shift and go to state 97
+    DIV             shift and go to state 98
+    MULT            shift and go to state 99
+    MOD             shift and go to state 100
+    POW             shift and go to state 101
+
+  ! ADD             [ reduce using rule 79 (expression -> expression POW expression .) ]
+  ! SUB             [ reduce using rule 79 (expression -> expression POW expression .) ]
+  ! DIV             [ reduce using rule 79 (expression -> expression POW expression .) ]
+  ! MULT            [ reduce using rule 79 (expression -> expression POW expression .) ]
+  ! MOD             [ reduce using rule 79 (expression -> expression POW expression .) ]
+  ! POW             [ reduce using rule 79 (expression -> expression POW expression .) ]
+
+
+state 130
+
+    (34) while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .
+
+    CLOSE_BRACE     reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    WHILE           reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    THE_1           reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    YOU             reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    GO              reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    ID              reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    UNSIGNED        reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    SHORT           reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    INT             reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    LONG            reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    FLOAT           reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    DOUBLE          reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    CHAR            reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    STRING          reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    BOOL            reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    VOID            reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    IF              reduce using rule 34 (while_statement -> WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+
+
+state 131
+
+    (47) comparasion_list -> comparasion_list logic_operator comparasion .
+
+    CLOSE_PARENTHESIS reduce using rule 47 (comparasion_list -> comparasion_list logic_operator comparasion .)
+    AND             reduce using rule 47 (comparasion_list -> comparasion_list logic_operator comparasion .)
+    OR              reduce using rule 47 (comparasion_list -> comparasion_list logic_operator comparasion .)
+    XOR             reduce using rule 47 (comparasion_list -> comparasion_list logic_operator comparasion .)
+
+
+state 132
+
+    (49) comparasion -> values value_operators values .
+
+    CLOSE_PARENTHESIS reduce using rule 49 (comparasion -> values value_operators values .)
+    AND             reduce using rule 49 (comparasion -> values value_operators values .)
+    OR              reduce using rule 49 (comparasion -> values value_operators values .)
+    XOR             reduce using rule 49 (comparasion -> values value_operators values .)
+
+
+state 133
+
+    (41) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS . comparasion_list CLOSE_PARENTHESIS block
+    (46) comparasion_list -> . comparasion
+    (47) comparasion_list -> . comparasion_list logic_operator comparasion
+    (48) comparasion -> . values
+    (49) comparasion -> . values value_operators values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    comparasion_list               shift and go to state 138
+    comparasion                    shift and go to state 84
+    values                         shift and go to state 85
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 134
+
+    (43) return_statement -> GO BACK TO THE_2 ABYSS .
+    (44) return_statement -> GO BACK TO THE_2 ABYSS . ID
+    (45) return_statement -> GO BACK TO THE_2 ABYSS . literal
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+
+    SEMICOLON       reduce using rule 43 (return_statement -> GO BACK TO THE_2 ABYSS .)
+    ID              shift and go to state 139
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    literal                        shift and go to state 140
+
+state 135
+
+    (38) if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .
+
+    HOWEVER         reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    ELSE            reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    CLOSE_BRACE     reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    WHILE           reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    THE_1           reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    YOU             reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    GO              reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    ID              reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    UNSIGNED        reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    SHORT           reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    INT             reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    LONG            reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    FLOAT           reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    DOUBLE          reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    CHAR            reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    STRING          reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    BOOL            reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    VOID            reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    IF              reduce using rule 38 (if_statement -> IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+
+
+state 136
+
+    (66) call_function -> ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS .
+
+    SEMICOLON       reduce using rule 66 (call_function -> ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS .)
+
+
+state 137
+
+    (70) args_list -> args_list COMMA . values
+    (71) values -> . literal
+    (72) values -> . ID
+    (73) values -> . expression
+    (58) literal -> . INT_LITERAL
+    (59) literal -> . FLOAT_LITERAL
+    (60) literal -> . CHAR_LITERAL
+    (61) literal -> . STRING_LITERAL
+    (62) literal -> . BOOL_FALSE
+    (63) literal -> . BOOL_TRUE
+    (74) expression -> . expression ADD expression
+    (75) expression -> . expression SUB expression
+    (76) expression -> . expression DIV expression
+    (77) expression -> . expression MULT expression
+    (78) expression -> . expression MOD expression
+    (79) expression -> . expression POW expression
+    (80) expression -> . literal
+    (81) expression -> . ID
+
+    ID              shift and go to state 86
+    INT_LITERAL     shift and go to state 77
+    FLOAT_LITERAL   shift and go to state 78
+    CHAR_LITERAL    shift and go to state 79
+    STRING_LITERAL  shift and go to state 80
+    BOOL_FALSE      shift and go to state 81
+    BOOL_TRUE       shift and go to state 82
+
+    values                         shift and go to state 141
+    literal                        shift and go to state 75
+    expression                     shift and go to state 76
+
+state 138
+
+    (41) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list . CLOSE_PARENTHESIS block
+    (47) comparasion_list -> comparasion_list . logic_operator comparasion
+    (55) logic_operator -> . AND
+    (56) logic_operator -> . OR
+    (57) logic_operator -> . XOR
+
+    CLOSE_PARENTHESIS shift and go to state 142
+    AND             shift and go to state 104
+    OR              shift and go to state 105
+    XOR             shift and go to state 106
+
+    logic_operator                 shift and go to state 103
+
+state 139
+
+    (44) return_statement -> GO BACK TO THE_2 ABYSS ID .
+
+    SEMICOLON       reduce using rule 44 (return_statement -> GO BACK TO THE_2 ABYSS ID .)
+
+
+state 140
+
+    (45) return_statement -> GO BACK TO THE_2 ABYSS literal .
+
+    SEMICOLON       reduce using rule 45 (return_statement -> GO BACK TO THE_2 ABYSS literal .)
+
+
+state 141
+
+    (70) args_list -> args_list COMMA values .
+
+    COMMA           reduce using rule 70 (args_list -> args_list COMMA values .)
+    CLOSE_PARENTHESIS reduce using rule 70 (args_list -> args_list COMMA values .)
+
+
+state 142
+
+    (41) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS . block
+    (24) block -> . OPEN_BRACE statements_list CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 36
+
+    block                          shift and go to state 143
+
+state 143
+
+    (41) elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .
+
+    HOWEVER         reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    ELSE            reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    CLOSE_BRACE     reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    WHILE           reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    THE_1           reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    YOU             reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    GO              reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    ID              reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    UNSIGNED        reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    SHORT           reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    INT             reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    LONG            reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    FLOAT           reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    DOUBLE          reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    CHAR            reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    STRING          reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    BOOL            reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    VOID            reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+    IF              reduce using rule 41 (elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ADD in state 122 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 122 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 122 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 122 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 122 resolved as shift
+WARNING: shift/reduce conflict for POW in state 122 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 125 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 125 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 125 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 125 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 125 resolved as shift
+WARNING: shift/reduce conflict for POW in state 125 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 126 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 126 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 126 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 126 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 126 resolved as shift
+WARNING: shift/reduce conflict for POW in state 126 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 127 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 127 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 127 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 127 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 127 resolved as shift
+WARNING: shift/reduce conflict for POW in state 127 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 128 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 128 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 128 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 128 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 128 resolved as shift
+WARNING: shift/reduce conflict for POW in state 128 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 129 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 129 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 129 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 129 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 129 resolved as shift
+WARNING: shift/reduce conflict for POW in state 129 resolved as shift
+WARNING: reduce/reduce conflict in state 72 resolved using rule (values -> ID)
+WARNING: rejected rule (expression -> ID) in state 72
+WARNING: reduce/reduce conflict in state 75 resolved using rule (values -> literal)
+WARNING: rejected rule (expression -> literal) in state 75
+WARNING: reduce/reduce conflict in state 86 resolved using rule (values -> ID)
+WARNING: rejected rule (expression -> ID) in state 86

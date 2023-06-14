@@ -75,10 +75,11 @@ def p_statements(p):
                | break_statement end
                | if_else_statement
                | return_statement end
+               | assign_statement end
     '''
 
 def p_while_statement(p):
-    'while_statement : WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block'
+    'while_statement : WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block'
     
 def p_continue_statement(p):
     'continue_statement : THE_1 QUEST CONTINUES'
@@ -87,12 +88,10 @@ def p_break_statement(p):
     'break_statement : YOU SHALL NOT PASS'
 
 def p_if_else_statement(p):
-    '''
-    if_else_statement : if_statement elif_statement else_statement
-    '''
+    'if_else_statement : if_statement elif_statement else_statement'
 
 def p_if_statement(p):
-    'if_statement : IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block'
+    'if_statement : IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block'
 
 def p_else_statement(p):
     '''
@@ -102,7 +101,7 @@ def p_else_statement(p):
 
 def p_elif_statement(p):
     '''
-    elif_statement : elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block 
+    elif_statement : elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block 
                    | empty
     '''
 
@@ -113,9 +112,32 @@ def p_return_statement(p):
                      | GO BACK TO THE_2 ABYSS literal
     '''
 
+def p_comparasion_list(p):
+    '''
+    comparasion_list : comparasion
+                     | comparasion_list logic_operator comparasion
+    '''
+
 def p_comparasion(p):
     '''
-    comparasion : empty
+    comparasion : values
+                | values value_operators values
+    '''
+
+def p_operators(p):
+    '''
+    value_operators : EQUAL
+                    | LESS
+                    | LESS_EQUAL
+                    | GREATER
+                    | GREATER_EQUAL
+    '''
+
+def p_logic_operator(p):
+    '''
+    logic_operator : AND
+                   | OR
+                   | XOR
     '''
 
 def p_literal(p):
@@ -128,6 +150,35 @@ def p_literal(p):
             | BOOL_TRUE
     '''
     p[0] = p[1]
+
+def p_assign_statement(p):
+    '''
+    assign_statement : ID ASSIGN values
+                     | ID ASSIGN call_function
+    '''
+
+def p_function(p):
+    'call_function : ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS'
+
+def p_args(p):
+    '''
+    args : args_list
+         | empty
+    '''
+
+def p_args_list(p):
+    '''
+    args_list : values
+              | args_list COMMA values
+    '''
+
+def p_values(p):
+    '''
+    values : literal
+           | ID
+    '''
+
+
 
 parser = yacc.yacc()
 
@@ -147,9 +198,13 @@ The journey begins here
     troll a;
     dragon c;
     
-    Quest()
+    a = i;
+    c = funcao();
+    i = funcao(a, c);
+    
+    Quest(i > 5 + 9)
     {
-        Quest()
+        Quest(x and y or z)
         {
             The quest continues;
             
@@ -159,26 +214,9 @@ The journey begins here
         
     }
     
-    Given()
-    {
-        
-    }
-    However when()
-    {
-        
-    }
-    However when()
-    {
-        
-    }
-    Otherwise
-    {
-        
-    }
-    
     sindarin s;
     
-    Go back to the abyss 0;
+    Go back to the abyss;
 }
 
 '''
