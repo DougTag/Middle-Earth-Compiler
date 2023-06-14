@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftADDSUBleftMULTDIVleftMODleftPOWrightUNARYABYSS ADD AND ASSIGN BACK BEGINS BITWISE_AND BITWISE_NOT BITWISE_OR BITWISE_XOR BOOL BOOL_FALSE BOOL_TRUE CHAR CHAR_LITERAL CLOSE_BRACE CLOSE_PARENTHESIS COMMA CONTINUES DIV DOUBLE ELSE EQUAL FLOAT FLOAT_LITERAL FUNCTION GO GREATER GREATER_EQUAL HERE HOWEVER ID IF INT INT_LITERAL JOURNEY LESS LESS_EQUAL LONG MOD MULT NOT OPEN_BRACE OPEN_PARENTHESIS OR PASS POW QUEST SEMICOLON SHALL SHORT STRING STRING_LITERAL SUB THE_1 THE_2 TO UNSIGNED VOID WHEN WHILE XOR YOUmain_statement : THE_1 JOURNEY BEGINS HERE block\n    expression : expression ADD expression\n               | expression SUB expression\n               | expression DIV expression\n               | expression MULT expression\n               | expression MOD expression\n               | expression POW expression\n    expression : literalexpression : SUB literal %prec UNARY\n    literal : INT_LITERAL\n            | FLOAT_LITERAL\n            | CHAR_LITERAL\n            | STRING_LITERAL\n            | bool_literal\n    \n    bool_literal : BOOL_TRUE\n                 | BOOL_FALSE\n    \n    type : UNSIGNED\n         | SHORT\n         | INT\n         | LONG\n         | FLOAT\n         | DOUBLE\n         | CHAR\n         | STRING\n         | BOOL\n         | VOID\n    end : SEMICOLON\n    block : OPEN_BRACE statements CLOSE_BRACE\n    \n    statements : declaration_statement\n    declaration_statement : type ID end'
+_lr_signature = 'ABYSS ADD AND ASSIGN BACK BEGINS BITWISE_AND BITWISE_NOT BITWISE_OR BITWISE_XOR BOOL BOOL_FALSE BOOL_TRUE CHAR CHAR_LITERAL CLOSE_BRACE CLOSE_PARENTHESIS COMMA CONTINUES DIV DOUBLE ELSE EQUAL FLOAT FLOAT_LITERAL FUNCTION GO GREATER GREATER_EQUAL HERE HOWEVER ID IF INT INT_LITERAL JOURNEY LESS LESS_EQUAL LONG MOD MULT NOT OPEN_BRACE OPEN_PARENTHESIS OR PASS POW QUEST SEMICOLON SHALL SHORT STRING STRING_LITERAL SUB THE_1 THE_2 TO UNSIGNED VOID WHEN WHILE XOR YOUprogram : global main_statement\n    global : declaration_statement end global\n           | function_statement global\n           | empty\n    function_statement : FUNCTION type ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS block\n    params : params_list\n           | empty\n    \n    params_list : declaration_statement\n                | params_list COMMA declaration_statement\n    main_statement : THE_1 JOURNEY BEGINS HERE block\n    declaration_statement : type ID\n    \n    type : UNSIGNED\n         | SHORT\n         | INT\n         | LONG\n         | FLOAT\n         | DOUBLE\n         | CHAR\n         | STRING\n         | BOOL\n         | VOID\n    end : SEMICOLONempty :\n    block : OPEN_BRACE statements_list CLOSE_BRACE\n    \n    statements_list : statements_list statements\n                    | empty\n    \n    statements : declaration_statement end\n               | while_statement\n               | continue_statement end\n               | break_statement end\n               | if_else_statement\n               | return_statement end\n    while_statement : WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS blockcontinue_statement : THE_1 QUEST CONTINUESbreak_statement : YOU SHALL NOT PASS\n    if_else_statement : if_statement elif_statement else_statement\n    if_statement : IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block\n    else_statement : ELSE block\n                   | empty\n    \n    elif_statement : elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block \n                   | empty\n    \n    return_statement : GO BACK TO THE_2 ABYSS\n                     | GO BACK TO THE_2 ABYSS ID\n                     | GO BACK TO THE_2 ABYSS literal\n    \n    comparasion : empty\n    \n    literal : INT_LITERAL\n            | FLOAT_LITERAL\n            | CHAR_LITERAL\n            | STRING_LITERAL\n            | BOOL_FALSE\n            | BOOL_TRUE\n    '
     
-_lr_action_items = {'THE_1':([0,],[2,]),'$end':([1,6,21,],[0,-1,-28,]),'JOURNEY':([2,],[3,]),'BEGINS':([3,],[4,]),'HERE':([4,],[5,]),'OPEN_BRACE':([5,],[7,]),'UNSIGNED':([7,],[11,]),'SHORT':([7,],[12,]),'INT':([7,],[13,]),'LONG':([7,],[14,]),'FLOAT':([7,],[15,]),'DOUBLE':([7,],[16,]),'CHAR':([7,],[17,]),'STRING':([7,],[18,]),'BOOL':([7,],[19,]),'VOID':([7,],[20,]),'CLOSE_BRACE':([8,9,23,24,],[21,-29,-30,-27,]),'ID':([10,11,12,13,14,15,16,17,18,19,20,],[22,-17,-18,-19,-20,-21,-22,-23,-24,-25,-26,]),'SEMICOLON':([22,],[24,]),}
+_lr_action_items = {'FUNCTION':([0,4,20,21,41,43,],[7,7,7,-22,-5,-24,]),'THE_1':([0,2,4,5,20,21,22,26,36,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-23,19,-23,-4,-23,-22,-3,-2,-23,52,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'UNSIGNED':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[8,8,8,8,-22,8,-23,8,8,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'SHORT':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[9,9,9,9,-22,9,-23,9,9,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'INT':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[10,10,10,10,-22,10,-23,10,10,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'LONG':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[11,11,11,11,-22,11,-23,11,11,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'FLOAT':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[12,12,12,12,-22,12,-23,12,12,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'DOUBLE':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[13,13,13,13,-22,13,-23,13,13,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'CHAR':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[14,14,14,14,-22,14,-23,14,14,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'STRING':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[15,15,15,15,-22,15,-23,15,15,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'BOOL':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[16,16,16,16,-22,16,-23,16,16,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'VOID':([0,4,7,20,21,29,36,38,39,40,41,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[17,17,17,17,-22,17,-23,17,17,-26,-5,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'$end':([1,18,35,43,],[0,-1,-10,-24,]),'SEMICOLON':([3,23,45,47,48,50,70,79,86,89,90,91,92,93,94,95,96,],[21,-11,21,21,21,21,-34,-35,-42,-43,-44,-46,-47,-48,-49,-50,-51,]),'ID':([6,8,9,10,11,12,13,14,15,16,17,24,86,],[23,-12,-13,-14,-15,-16,-17,-18,-19,-20,-21,27,89,]),'JOURNEY':([19,],[25,]),'CLOSE_BRACE':([21,36,39,40,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-22,-23,43,-26,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'WHILE':([21,36,39,40,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-22,-23,51,-26,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'YOU':([21,36,39,40,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-22,-23,53,-26,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'GO':([21,36,39,40,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-22,-23,55,-26,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'IF':([21,36,39,40,43,44,46,49,54,57,58,59,60,64,65,72,75,81,84,87,98,],[-22,-23,56,-26,-24,-25,-28,-31,-23,-27,-29,-30,-32,-23,-41,-36,-39,-38,-33,-37,-40,]),'COMMA':([23,32,34,42,],[-11,38,-8,-9,]),'CLOSE_PARENTHESIS':([23,29,31,32,33,34,42,61,67,68,69,77,85,88,],[-11,-23,37,-6,-7,-8,-9,-23,-23,78,-45,83,-23,97,]),'BEGINS':([25,],[28,]),'OPEN_PARENTHESIS':([27,51,56,80,],[29,61,67,85,]),'HERE':([28,],[30,]),'OPEN_BRACE':([30,37,74,78,83,97,],[36,36,36,36,36,36,]),'HOWEVER':([43,54,64,65,87,98,],[-24,-23,73,-41,-37,-40,]),'ELSE':([43,54,64,65,87,98,],[-24,-23,74,-41,-37,-40,]),'QUEST':([52,],[62,]),'SHALL':([53,],[63,]),'BACK':([55,],[66,]),'CONTINUES':([62,],[70,]),'NOT':([63,],[71,]),'TO':([66,],[76,]),'PASS':([71,],[79,]),'WHEN':([73,],[80,]),'THE_2':([76,],[82,]),'ABYSS':([82,],[86,]),'INT_LITERAL':([86,],[91,]),'FLOAT_LITERAL':([86,],[92,]),'CHAR_LITERAL':([86,],[93,]),'STRING_LITERAL':([86,],[94,]),'BOOL_FALSE':([86,],[95,]),'BOOL_TRUE':([86,],[96,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'main_statement':([0,],[1,]),'block':([5,],[6,]),'statements':([7,],[8,]),'declaration_statement':([7,],[9,]),'type':([7,],[10,]),'end':([22,],[23,]),}
+_lr_goto_items = {'program':([0,],[1,]),'global':([0,4,20,],[2,22,26,]),'declaration_statement':([0,4,20,29,38,39,],[3,3,3,34,42,45,]),'function_statement':([0,4,20,],[4,4,4,]),'empty':([0,4,20,29,36,54,61,64,67,85,],[5,5,5,33,40,65,69,75,69,69,]),'type':([0,4,7,20,29,38,39,],[6,6,24,6,6,6,6,]),'main_statement':([2,],[18,]),'end':([3,45,47,48,50,],[20,57,58,59,60,]),'params':([29,],[31,]),'params_list':([29,],[32,]),'block':([30,37,74,78,83,97,],[35,41,81,84,87,98,]),'statements_list':([36,],[39,]),'statements':([39,],[44,]),'while_statement':([39,],[46,]),'continue_statement':([39,],[47,]),'break_statement':([39,],[48,]),'if_else_statement':([39,],[49,]),'return_statement':([39,],[50,]),'if_statement':([39,],[54,]),'elif_statement':([54,],[64,]),'comparasion':([61,67,85,],[68,77,88,]),'else_statement':([64,],[72,]),'literal':([86,],[90,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,35 +26,56 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> main_statement","S'",1,None,None,None),
-  ('main_statement -> THE_1 JOURNEY BEGINS HERE block','main_statement',5,'p_main_statement','mepp_parser.py',5),
-  ('expression -> expression ADD expression','expression',3,'p_expression','mepp_parser.py',9),
-  ('expression -> expression SUB expression','expression',3,'p_expression','mepp_parser.py',10),
-  ('expression -> expression DIV expression','expression',3,'p_expression','mepp_parser.py',11),
-  ('expression -> expression MULT expression','expression',3,'p_expression','mepp_parser.py',12),
-  ('expression -> expression MOD expression','expression',3,'p_expression','mepp_parser.py',13),
-  ('expression -> expression POW expression','expression',3,'p_expression','mepp_parser.py',14),
-  ('expression -> literal','expression',1,'p_expression_number','mepp_parser.py',31),
-  ('expression -> SUB literal','expression',2,'p_unary','mepp_parser.py',35),
-  ('literal -> INT_LITERAL','literal',1,'p_literal','mepp_parser.py',40),
-  ('literal -> FLOAT_LITERAL','literal',1,'p_literal','mepp_parser.py',41),
-  ('literal -> CHAR_LITERAL','literal',1,'p_literal','mepp_parser.py',42),
-  ('literal -> STRING_LITERAL','literal',1,'p_literal','mepp_parser.py',43),
-  ('literal -> bool_literal','literal',1,'p_literal','mepp_parser.py',44),
-  ('bool_literal -> BOOL_TRUE','bool_literal',1,'p_bool_literal','mepp_parser.py',50),
-  ('bool_literal -> BOOL_FALSE','bool_literal',1,'p_bool_literal','mepp_parser.py',51),
-  ('type -> UNSIGNED','type',1,'p_type','mepp_parser.py',57),
-  ('type -> SHORT','type',1,'p_type','mepp_parser.py',58),
-  ('type -> INT','type',1,'p_type','mepp_parser.py',59),
-  ('type -> LONG','type',1,'p_type','mepp_parser.py',60),
-  ('type -> FLOAT','type',1,'p_type','mepp_parser.py',61),
-  ('type -> DOUBLE','type',1,'p_type','mepp_parser.py',62),
-  ('type -> CHAR','type',1,'p_type','mepp_parser.py',63),
-  ('type -> STRING','type',1,'p_type','mepp_parser.py',64),
-  ('type -> BOOL','type',1,'p_type','mepp_parser.py',65),
-  ('type -> VOID','type',1,'p_type','mepp_parser.py',66),
-  ('end -> SEMICOLON','end',1,'p_end','mepp_parser.py',70),
-  ('block -> OPEN_BRACE statements CLOSE_BRACE','block',3,'p_block','mepp_parser.py',75),
-  ('statements -> declaration_statement','statements',1,'p_statements','mepp_parser.py',80),
-  ('declaration_statement -> type ID end','declaration_statement',3,'p_declaration_statement','mepp_parser.py',84),
+  ("S' -> program","S'",1,None,None,None),
+  ('program -> global main_statement','program',2,'p_program','mepp_parser.py',5),
+  ('global -> declaration_statement end global','global',3,'p_global','mepp_parser.py',9),
+  ('global -> function_statement global','global',2,'p_global','mepp_parser.py',10),
+  ('global -> empty','global',1,'p_global','mepp_parser.py',11),
+  ('function_statement -> FUNCTION type ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS block','function_statement',7,'p_function_statement','mepp_parser.py',15),
+  ('params -> params_list','params',1,'p_params','mepp_parser.py',19),
+  ('params -> empty','params',1,'p_params','mepp_parser.py',20),
+  ('params_list -> declaration_statement','params_list',1,'p_params_list','mepp_parser.py',25),
+  ('params_list -> params_list COMMA declaration_statement','params_list',3,'p_params_list','mepp_parser.py',26),
+  ('main_statement -> THE_1 JOURNEY BEGINS HERE block','main_statement',5,'p_main_statement','mepp_parser.py',31),
+  ('declaration_statement -> type ID','declaration_statement',2,'p_declaration_statement','mepp_parser.py',35),
+  ('type -> UNSIGNED','type',1,'p_type','mepp_parser.py',40),
+  ('type -> SHORT','type',1,'p_type','mepp_parser.py',41),
+  ('type -> INT','type',1,'p_type','mepp_parser.py',42),
+  ('type -> LONG','type',1,'p_type','mepp_parser.py',43),
+  ('type -> FLOAT','type',1,'p_type','mepp_parser.py',44),
+  ('type -> DOUBLE','type',1,'p_type','mepp_parser.py',45),
+  ('type -> CHAR','type',1,'p_type','mepp_parser.py',46),
+  ('type -> STRING','type',1,'p_type','mepp_parser.py',47),
+  ('type -> BOOL','type',1,'p_type','mepp_parser.py',48),
+  ('type -> VOID','type',1,'p_type','mepp_parser.py',49),
+  ('end -> SEMICOLON','end',1,'p_end','mepp_parser.py',53),
+  ('empty -> <empty>','empty',0,'p_empty','mepp_parser.py',56),
+  ('block -> OPEN_BRACE statements_list CLOSE_BRACE','block',3,'p_block','mepp_parser.py',61),
+  ('statements_list -> statements_list statements','statements_list',2,'p_statements_list','mepp_parser.py',66),
+  ('statements_list -> empty','statements_list',1,'p_statements_list','mepp_parser.py',67),
+  ('statements -> declaration_statement end','statements',2,'p_statements','mepp_parser.py',72),
+  ('statements -> while_statement','statements',1,'p_statements','mepp_parser.py',73),
+  ('statements -> continue_statement end','statements',2,'p_statements','mepp_parser.py',74),
+  ('statements -> break_statement end','statements',2,'p_statements','mepp_parser.py',75),
+  ('statements -> if_else_statement','statements',1,'p_statements','mepp_parser.py',76),
+  ('statements -> return_statement end','statements',2,'p_statements','mepp_parser.py',77),
+  ('while_statement -> WHILE OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block','while_statement',5,'p_while_statement','mepp_parser.py',81),
+  ('continue_statement -> THE_1 QUEST CONTINUES','continue_statement',3,'p_continue_statement','mepp_parser.py',84),
+  ('break_statement -> YOU SHALL NOT PASS','break_statement',4,'p_break_statement','mepp_parser.py',87),
+  ('if_else_statement -> if_statement elif_statement else_statement','if_else_statement',3,'p_if_else_statement','mepp_parser.py',91),
+  ('if_statement -> IF OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block','if_statement',5,'p_if_statement','mepp_parser.py',95),
+  ('else_statement -> ELSE block','else_statement',2,'p_else_statement','mepp_parser.py',99),
+  ('else_statement -> empty','else_statement',1,'p_else_statement','mepp_parser.py',100),
+  ('elif_statement -> elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion CLOSE_PARENTHESIS block','elif_statement',7,'p_elif_statement','mepp_parser.py',105),
+  ('elif_statement -> empty','elif_statement',1,'p_elif_statement','mepp_parser.py',106),
+  ('return_statement -> GO BACK TO THE_2 ABYSS','return_statement',5,'p_return_statement','mepp_parser.py',111),
+  ('return_statement -> GO BACK TO THE_2 ABYSS ID','return_statement',6,'p_return_statement','mepp_parser.py',112),
+  ('return_statement -> GO BACK TO THE_2 ABYSS literal','return_statement',6,'p_return_statement','mepp_parser.py',113),
+  ('comparasion -> empty','comparasion',1,'p_comparasion','mepp_parser.py',118),
+  ('literal -> INT_LITERAL','literal',1,'p_literal','mepp_parser.py',123),
+  ('literal -> FLOAT_LITERAL','literal',1,'p_literal','mepp_parser.py',124),
+  ('literal -> CHAR_LITERAL','literal',1,'p_literal','mepp_parser.py',125),
+  ('literal -> STRING_LITERAL','literal',1,'p_literal','mepp_parser.py',126),
+  ('literal -> BOOL_FALSE','literal',1,'p_literal','mepp_parser.py',127),
+  ('literal -> BOOL_TRUE','literal',1,'p_literal','mepp_parser.py',128),
 ]

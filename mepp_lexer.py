@@ -16,7 +16,7 @@ reserved = {
    'back': 'BACK',
    'to': 'TO',
    'the': 'THE_2',
-   'abyss!': 'ABYSS',
+   'abyss': 'ABYSS',
    'Given' : 'IF',
    'Otherwise': 'ELSE',
    'However': 'HOWEVER',
@@ -165,7 +165,7 @@ The journey begins here
 }
 '''
 
-lexer.input(code)
+lexer.input("")
 
 while True:
     tok = lexer.token()
