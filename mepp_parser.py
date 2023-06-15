@@ -55,8 +55,12 @@ def p_type(p):
          | VOID
     '''
     
+    # adicionar exclamacao
 def p_end(p):
-    'end : SEMICOLON'
+    '''
+    end : SEMICOLON
+        | EXCLAMATION
+    '''
 
 def p_empty(p):
     'empty :'
@@ -114,8 +118,7 @@ def p_elif_statement(p):
 def p_return_statement(p):
     '''
     return_statement : GO BACK TO THE_2 ABYSS
-                     | GO BACK TO THE_2 ABYSS ID
-                     | GO BACK TO THE_2 ABYSS literal
+                     | GO BACK TO THE_2 ABYSS expression
     '''
 
 def p_comparasion_list(p):
@@ -174,8 +177,8 @@ def p_args(p):
 
 def p_args_list(p):
     '''
-    args_list : values
-              | args_list COMMA values
+    args_list : expression
+              | args_list COMMA expression
     '''
 
 
@@ -200,7 +203,8 @@ def p_values(p):
            | ID
     '''
 
-
+def p_error(p):
+    print("Syntax error in input!")
 
 parser = yacc.yacc()
 
@@ -208,28 +212,27 @@ code = '''
 elf i;
 troll j;
 
-Prologue darkness funcao(elf n){
+Prologue elf fatorial(elf n){
     Given(n == 1)
     {
         Go back to the abyss 1;
     }
-    
-    elf a, b, c;
-    elf b;
-    elf c;
-    
-    a = n-1;
-    b = funcao(a);
-    c = n * b;
-    
-    Go back to the abyss c;
+
+    b = fatorial(n-1);
+
+    Go back to the abyss n * b;
 }
+
+sindarin string;
 
 The journey begins here
 {
     hobbit a;
+    sindarin string;
+    string = "eeoooo";
+    
     a = (5 + 10) * 423423;
-    Go back to the abyss;
+    Go back to the abyss 0!
 }
 
 '''

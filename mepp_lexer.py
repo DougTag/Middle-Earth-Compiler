@@ -67,6 +67,7 @@ tokens = [
    'FLOAT_LITERAL',
    'STRING_LITERAL',
    'CHAR_LITERAL',
+   'EXCLAMATION'
 ] + list(reserved.values())
 
 t_OPEN_BRACE = r'{'
@@ -91,6 +92,7 @@ t_BITWISE_NOT = r'~'
 t_BITWISE_OR = r'\|'
 t_BITWISE_AND = r'&'
 t_BITWISE_XOR = r'\^'
+t_EXCLAMATION = r'!'
 
 t_STRING_LITERAL = r'"[\w]+"'
 t_CHAR_LITERAL = r'\'[\w]\''
