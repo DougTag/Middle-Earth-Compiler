@@ -35,6 +35,12 @@ def p_declaration_statement(p):
     declaration_statement : type ID
     '''
 
+def p_declaration_statement_list(p):
+    '''
+    declaration_statement_list : declaration_statement
+                               | declaration_statement_list COMMA ID 
+    '''
+
 def p_type(p):
     '''
     type : UNSIGNED
@@ -69,7 +75,7 @@ def p_statements_list(p):
 
 def p_statements(p):
     '''
-    statements : declaration_statement end
+    statements : declaration_statement_list end
                | while_statement
                | continue_statement end
                | break_statement end
@@ -120,8 +126,8 @@ def p_comparasion_list(p):
 
 def p_comparasion(p):
     '''
-    comparasion : values
-                | values value_operators values
+    comparasion : expression
+                | expression value_operators expression
     '''
 
 def p_operators(p):
@@ -153,8 +159,8 @@ def p_literal(p):
 
 def p_assign_statement(p):
     '''
-    assign_statement : ID ASSIGN values
-                     | ID ASSIGN call_function
+    assign_statement : ID ASSIGN call_function
+                     | ID ASSIGN expression
     '''
 
 def p_function(p):
@@ -172,6 +178,22 @@ def p_args_list(p):
               | args_list COMMA values
     '''
 
+
+def p_expression(p):
+    '''
+    expression : expression ADD values
+               | expression SUB values
+               | expression DIV values
+               | expression MULT values
+               | expression MOD values
+               | expression POW values
+               | expression BITWISE_OR values
+               | expression BITWISE_AND values
+               | expression BITWISE_XOR values
+               | OPEN_PARENTHESIS expression CLOSE_PARENTHESIS
+               | values     
+    '''
+
 def p_values(p):
     '''
     values : literal
@@ -186,36 +208,27 @@ code = '''
 elf i;
 troll j;
 
-Prologue darkness funcao(){
+Prologue darkness funcao(elf n){
+    Given(n == 1)
+    {
+        Go back to the abyss 1;
+    }
     
+    elf a, b, c;
+    elf b;
+    elf c;
+    
+    a = n-1;
+    b = funcao(a);
+    c = n * b;
+    
+    Go back to the abyss c;
 }
-
-dragon var;
 
 The journey begins here
 {
-    elf i;
-    troll a;
-    dragon c;
-    
-    a = i;
-    c = funcao();
-    i = funcao(a, c);
-    
-    Quest(i > 5 + 9)
-    {
-        Quest(x and y or z)
-        {
-            The quest continues;
-            
-        }
-        
-        You shall not pass;
-        
-    }
-    
-    sindarin s;
-    
+    hobbit a;
+    a = (5 + 10) * 423423;
     Go back to the abyss;
 }
 
