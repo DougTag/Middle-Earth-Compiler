@@ -60,7 +60,12 @@ def p_end(p):
     '''
     end : SEMICOLON
         | EXCLAMATION
+        | error_end
     '''
+
+def p_error_end(p):
+    'error_end : NEWLINE'
+    print(f'ERRO: espera-se \';\' no final da linha {p.lineno(1)}')
 
 def p_empty(p):
     'empty :'
@@ -89,7 +94,7 @@ def p_statements(p):
     '''
 
 def p_while_statement(p):
-    'while_statement : WHILE OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block'
+    'while_statement : WHILE OPEN_PARENTHESIS comparison_list CLOSE_PARENTHESIS block'
     
 def p_continue_statement(p):
     'continue_statement : THE_1 QUEST CONTINUES'
@@ -101,7 +106,7 @@ def p_if_else_statement(p):
     'if_else_statement : if_statement elif_statement else_statement'
 
 def p_if_statement(p):
-    'if_statement : IF OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block'
+    'if_statement : IF OPEN_PARENTHESIS comparison_list CLOSE_PARENTHESIS block'
 
 def p_else_statement(p):
     '''
@@ -111,7 +116,7 @@ def p_else_statement(p):
 
 def p_elif_statement(p):
     '''
-    elif_statement : elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparasion_list CLOSE_PARENTHESIS block 
+    elif_statement : elif_statement HOWEVER WHEN OPEN_PARENTHESIS comparison_list CLOSE_PARENTHESIS block 
                    | empty
     '''
 
@@ -121,16 +126,16 @@ def p_return_statement(p):
                      | GO BACK TO THE_2 ABYSS expression
     '''
 
-def p_comparasion_list(p):
+def p_comparison_list(p):
     '''
-    comparasion_list : comparasion
-                     | comparasion_list logic_operator comparasion
+    comparison_list : comparison
+                    | comparison_list logic_operator comparison
     '''
 
 def p_comparasion(p):
     '''
-    comparasion : expression
-                | expression value_operators expression
+    comparison : expression
+               | expression value_operators expression
     '''
 
 def p_operators(p):
@@ -140,6 +145,7 @@ def p_operators(p):
                     | LESS_EQUAL
                     | GREATER
                     | GREATER_EQUAL
+                    | DIFF
     '''
 
 def p_logic_operator(p):
@@ -203,39 +209,43 @@ def p_values(p):
            | ID
     '''
 
+def p_expr_usub(p):
+    'expression : SUB expression %prec USUB'
+
+def p_expr_ubitwisenot(p):
+    'expression : BITWISE_NOT expression %prec UBITWISENOT'
+
 def p_error(p):
-    print("Syntax error in input!")
+    if p:
+        
+        if p.type == "NEWLINE":
+            parser.errok()
+        #print("Syntax error at token", p.type)
+         # Just discard the token and tell the parser it's okay.
+         #parser.errok()
+    else:
+         print("Syntax error at EOF")
+
+precedence = (
+    ('left', 'ADD', 'SUB'),
+    ('left', 'MULT', 'DIV'),
+    ('right', 'USUB', 'UBITWISENOT'),            # Unary minus operator
+)
+
 
 parser = yacc.yacc()
 
 code = '''
 elf i;
 troll j;
-
-Prologue elf fatorial(elf n){
-    Given(n == 1)
-    {
-        Go back to the abyss 1;
-    }
-
-    b = fatorial(n-1);
-
-    Go back to the abyss n * b;
-}
-
 sindarin string;
 
 The journey begins here
 {
-    hobbit a;
-    sindarin string;
-    string = "eeoooo";
-    
-    a = (5 + 10) * 423423;
-    Go back to the abyss 0!
+    hobbit a
 }
 
 '''
 
 result = parser.parse(code)
-print(result)
+#print(result)

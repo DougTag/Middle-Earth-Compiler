@@ -54,6 +54,7 @@ tokens = [
    'MOD',
    'ASSIGN',
    'EQUAL',
+   'DIFF',
    'LESS',
    'LESS_EQUAL',
    'GREATER',
@@ -67,7 +68,8 @@ tokens = [
    'FLOAT_LITERAL',
    'STRING_LITERAL',
    'CHAR_LITERAL',
-   'EXCLAMATION'
+   'EXCLAMATION',
+   'NEWLINE'
 ] + list(reserved.values())
 
 t_OPEN_BRACE = r'{'
@@ -84,6 +86,7 @@ t_DIV = r'/'
 t_MOD = r'%' 
 t_ASSIGN = r'='
 t_EQUAL = r'=='
+t_DIFF = r'<>'
 t_LESS = r'<' 
 t_LESS_EQUAL = r'<='
 t_GREATER = r'>' 
@@ -97,7 +100,7 @@ t_EXCLAMATION = r'!'
 t_STRING_LITERAL = r'"[\w]+"'
 t_CHAR_LITERAL = r'\'[\w]\''
 
-t_ignore  = ' \t\n'
+t_ignore  = ' \t'
 
 def t_FLOAT_LITERAL(t):
     r'[0-9]+\.[0-9]+'
@@ -122,48 +125,23 @@ def t_ID(t):
     t.type = reserved.get(t.value,'ID')    # Checa se é palavra reservada
     return t
 
+def t_NEWLINE(t):
+    r'\n'
+    t.lexer.lineno += len(t.value)
+    return t
+
 lexer = lex.lex()
 
 
 code = '''
 The journey begins here
 {
-    istari bool_type;
-    bool_type = true;
-
-    elf i;
-    elf j;
     elf a;
-    elf b;
-
-    i = 0;
-    j = 0;
-    a = 67;
-    b = 23;
     
-    Quest(i < 105)
-    {
-        Given(i = 23)
-        {
-            Quest(bool_type)
-            {
-                Given(j = 23)
-                {
-                    bool_type = false;
-                }
-                j += 1;
-            }
-        }
-        However when(i = 33)
-        {
-            i = a + b; # depois trocar por You shall not pass!
-        }
-        Otherwise
-        {
-            i = i + 1;
-        }
-    }
-    0 Go back to the abyss!;
+    
+    
+    
+    Go back to the abyss;
 }
 '''
 
